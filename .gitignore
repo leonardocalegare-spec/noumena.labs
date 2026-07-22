@@ -1,0 +1,12 @@
+node_modules
+dist
+.env*
+!.env.example
+.vercel
+.netlify
+*.pem
+*.key
+*.p12
+*.pfx
+*.log
+.DS_Store
