@@ -6,7 +6,7 @@
       "headers": [
         {
           "key": "Content-Security-Policy",
-          "value": "default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self' 'sha256-xiPH6a2VjdqyegNUFTLvzbMjtemJQEfG3FX6U7fO/Lo='; script-src-attr 'none'; style-src 'self'; style-src-attr 'none'; font-src 'self'; img-src 'self' data:; connect-src 'self'; frame-src 'none'; frame-ancestors 'none'; form-action 'none'; manifest-src 'self'; media-src 'none'; worker-src 'none'; upgrade-insecure-requests"
+          "value": "default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self' 'sha256-Z1XcIN/EE0mVEKC/XO6K4ciH6EMaaRFpQPqU/5Uda5k='; script-src-attr 'none'; style-src 'self'; style-src-attr 'none'; font-src 'self'; img-src 'self' data:; connect-src 'self'; frame-src 'none'; frame-ancestors 'none'; form-action 'none'; manifest-src 'self'; media-src 'none'; worker-src 'none'; upgrade-insecure-requests"
         },
         {
           "key": "Strict-Transport-Security",

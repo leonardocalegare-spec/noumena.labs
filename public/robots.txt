@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://leonardocalegare-spec.github.io/noumena-labs.github.io/sitemap.xml
+Sitemap: https://leonardocalegare-spec.github.io/noumena.labs/sitemap.xml

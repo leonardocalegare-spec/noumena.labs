@@ -3,7 +3,7 @@
 Site institucional da **Noumena Labs**, criado para apresentar serviços de desenvolvimento web, consultoria em TI, projetos realizados e formas de contato.
 
 🔗 **Site publicado:**  
-https://leonardocalegare-spec.github.io/noumena-labs.github.io/
+https://leonardocalegare-spec.github.io/noumena.labs/
 
 ## Sobre o projeto
 
@@ -43,13 +43,13 @@ O site apresenta:
 Clone o repositório:
 
 ```bash
-git clone https://github.com/leonardocalegare-spec/noumena-labs.github.io.git
+git clone https://github.com/leonardocalegare-spec/noumena.labs.git
 ```
 
 Entre na pasta:
 
 ```bash
-cd noumena-labs.github.io
+cd noumena.labs
 ```
 
 Instale as dependências:
@@ -113,7 +113,7 @@ Consulta vulnerabilidades conhecidas nas dependências.
 ## Estrutura principal
 
 ```text
-noumena-labs.github.io/
+noumena.labs/
 ├── .github/
 │   ├── workflows/
 │   │   ├── deploy-pages.yml
@@ -164,7 +164,7 @@ O andamento pode ser acompanhado na aba **Actions** do repositório.
 Enquanto o projeto estiver publicado no endereço padrão do GitHub Pages, o build utiliza:
 
 ```text
-/noumena-labs.github.io/
+/noumena.labs/
 ```
 
 Essa configuração está definida no workflow de publicação por meio da variável:
@@ -223,7 +223,7 @@ Fundador da Noumena Labs e estudante de Ciência da Computação.
 
 Entre em contato pelo site:
 
-https://leonardocalegare-spec.github.io/noumena-labs.github.io/
+https://leonardocalegare-spec.github.io/noumena.labs/
 
 ## Licença e uso
 

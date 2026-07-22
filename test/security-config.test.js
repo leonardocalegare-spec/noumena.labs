@@ -66,7 +66,7 @@ test('SEO usa a URL pública atual e expõe arquivos de descoberta', async () =>
   const html = await readFile(new URL('../index.html', import.meta.url), 'utf8')
   const robots = await readFile(new URL('../public/robots.txt', import.meta.url), 'utf8')
   const sitemap = await readFile(new URL('../public/sitemap.xml', import.meta.url), 'utf8')
-  const publicUrl = 'https://leonardocalegare-spec.github.io/noumena-labs.github.io/'
+  const publicUrl = 'https://leonardocalegare-spec.github.io/noumena.labs/'
 
   assert.match(html, new RegExp(`<link rel="canonical" href="${publicUrl}"`))
   assert.match(html, new RegExp(`<meta property="og:url" content="${publicUrl}"`))
