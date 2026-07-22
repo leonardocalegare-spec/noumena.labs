@@ -41,6 +41,11 @@ export const projects = [
     category: 'PRODUTO DIGITAL · FRONT-END',
     title: 'Rede Credenciada Parkaz',
     description: 'Fluxo digital em seis etapas para organizar o cadastro de empresas interessadas em integrar a rede credenciada Parkaz, com validação dos dados ao longo da jornada.',
+    story: [
+      ['Desafio', 'Organizar uma coleta extensa de dados empresariais sem transformar o cadastro em uma experiência confusa.'],
+      ['Estratégia', 'Dividir a jornada em seis etapas, mostrar o progresso e validar as informações no momento adequado.'],
+      ['Entrega', 'Interface responsiva publicada, integração com Google Sheets e uma experiência guiada do início ao envio.'],
+    ],
     details: ['React + TypeScript', 'Formulário progressivo validado', 'Integração com Google Sheets'],
     liveUrl: 'https://redecredenciadaparkaz.vercel.app/',
     slides: [

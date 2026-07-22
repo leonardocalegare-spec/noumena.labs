@@ -62,6 +62,18 @@ test('fontes são servidas pela própria origem', async () => {
   assert.match(styles, /url\('\/fonts\/space-grotesk-latin\.woff2'\)/)
 })
 
+test('SEO usa a URL pública atual e expõe arquivos de descoberta', async () => {
+  const html = await readFile(new URL('../index.html', import.meta.url), 'utf8')
+  const robots = await readFile(new URL('../public/robots.txt', import.meta.url), 'utf8')
+  const sitemap = await readFile(new URL('../public/sitemap.xml', import.meta.url), 'utf8')
+  const publicUrl = 'https://leonardocalegare-spec.github.io/noumena-labs.github.io/'
+
+  assert.match(html, new RegExp(`<link rel="canonical" href="${publicUrl}"`))
+  assert.match(html, new RegExp(`<meta property="og:url" content="${publicUrl}"`))
+  assert.match(robots, /Sitemap: .*\/sitemap\.xml/)
+  assert.match(sitemap, new RegExp(`<loc>${publicUrl}</loc>`))
+})
+
 test('links em nova aba não compartilham o contexto da página', async () => {
   const files = await Promise.all([
     readFile(new URL('../src/App.jsx', import.meta.url), 'utf8'),

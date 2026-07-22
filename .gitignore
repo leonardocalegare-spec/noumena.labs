@@ -9,4 +9,6 @@ dist
 *.p12
 *.pfx
 *.log
+playwright-report
+test-results
 .DS_Store

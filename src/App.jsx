@@ -92,6 +92,9 @@ function App() {
                   <div className="card-header"><span>{project.code}</span><span>{project.category}</span></div>
                   <h3>{project.title}</h3>
                   <p>{project.description}</p>
+                  <dl className="case-story">
+                    {project.story.map(([label, value]) => <div key={label}><dt>{label}</dt><dd>{value}</dd></div>)}
+                  </dl>
                   <ul>{project.details.map((detail) => <li key={detail}><Icon name="check" size={17} /> {detail}</li>)}</ul>
                   <a className="project-live-link" href={project.liveUrl} target="_blank" rel="noreferrer">Ver projeto publicado <Icon name="external" size={18} /></a>
                   <a href={generalProjectLink} target="_blank" rel="noreferrer">Quero construir algo assim <Icon name="external" size={18} /></a>
@@ -149,6 +152,10 @@ function App() {
           </div>
         </section>
       </main>
+
+      <a className="mobile-contact" href={contactLinks[0].href} target="_blank" rel="noreferrer" aria-label="Conversar com Leonardo pelo WhatsApp">
+        <span>Falar no WhatsApp</span><Icon name="external" size={18} />
+      </a>
 
       <footer id="sobre">
         <div className="container founder-footer">

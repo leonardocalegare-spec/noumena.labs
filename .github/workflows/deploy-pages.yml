@@ -37,6 +37,12 @@ jobs:
       - name: Test
         run: npm test
 
+      - name: Install browser for interface tests
+        run: npx playwright install --with-deps chromium
+
+      - name: Test interface
+        run: npm run test:e2e -- --project=desktop --project=mobile
+
       - name: Build for GitHub Pages
         run: npm run build
         env:
