@@ -8,7 +8,7 @@ test('mantém somente a Rede Credenciada Parkaz na vitrine', () => {
   assert.equal(projects.length, 1)
   assert.equal(projects[0].title, 'Rede Credenciada Parkaz')
   assert.equal(projects[0].slides.length, 3)
-  assert.deepEqual(projects[0].story.map(([label]) => label), ['Desafio', 'Estratégia', 'Entrega'])
+  assert.deepEqual(projects[0].story.map(({ label }) => label), ['Desafio', 'Estratégia', 'Entrega'])
   assert.ok(projects[0].slides.every(({ image, label, description, width, height }) => image.endsWith('.png') && label && description && width > 0 && height > 0))
   assert.equal(projects[0].liveUrl, 'https://redecredenciadaparkaz.vercel.app/')
 })

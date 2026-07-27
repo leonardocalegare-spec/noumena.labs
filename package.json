@@ -4,17 +4,31 @@
   "version": "0.1.0",
   "type": "module",
   "scripts": {
+    "predev": "npm run content:generate:dev",
     "dev": "vite",
-    "build": "vite build",
+    "prebuild": "npm run content:check && npm run content:generate",
+    "build": "vite build && node scripts/postbuild.js",
     "lint": "eslint .",
     "test": "node --test",
+    "pretest:e2e": "npm run content:generate:dev",
     "test:e2e": "playwright test",
+    "content:new": "node scripts/content-new.js",
+    "content:list": "node scripts/content-list.js",
+    "content:check": "node scripts/content-check.js",
+    "content:generate": "node scripts/generate-content.js",
+    "content:generate:dev": "node scripts/generate-content.js --include-drafts",
+    "content:publish": "node scripts/content-status.js published",
+    "content:archive": "node scripts/content-status.js archived",
     "security:check": "npm audit --audit-level=high",
     "preview": "vite preview"
   },
   "dependencies": {
     "react": "19.2.7",
-    "react-dom": "19.2.7"
+    "react-dom": "19.2.7",
+    "react-markdown": "^10.1.0",
+    "react-router": "^8.3.0",
+    "remark-gfm": "^4.0.1",
+    "yaml": "^2.9.0"
   },
   "devDependencies": {
     "@eslint/js": "10.0.1",

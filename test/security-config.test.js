@@ -28,10 +28,12 @@ test('CSP bloqueia execução e incorporação não autorizadas', async () => {
 
   assert.match(csp, /default-src 'self'/)
   assert.match(csp, /frame-ancestors 'none'/)
+  assert.match(csp, /frame-src https:\/\/www\.youtube-nocookie\.com/)
   assert.match(csp, /object-src 'none'/)
   assert.match(csp, /form-action 'none'/)
   assert.doesNotMatch(csp, /unsafe-inline|unsafe-eval/)
   assert.doesNotMatch(csp, /fonts\.googleapis|fonts\.gstatic/)
+  assert.doesNotMatch(csp, /frame-src \*/)
 })
 
 test('arquivo de headers estáticos permanece sincronizado', async () => {
@@ -76,7 +78,9 @@ test('SEO usa a URL pública atual e expõe arquivos de descoberta', async () =>
 
 test('links em nova aba não compartilham o contexto da página', async () => {
   const files = await Promise.all([
-    readFile(new URL('../src/App.jsx', import.meta.url), 'utf8'),
+    readFile(new URL('../src/pages/HomePage.jsx', import.meta.url), 'utf8'),
+    readFile(new URL('../src/pages/CadernoPage.jsx', import.meta.url), 'utf8'),
+    readFile(new URL('../src/components/cadernos/VideoPlayer.jsx', import.meta.url), 'utf8'),
     readFile(new URL('../src/components/Header.jsx', import.meta.url), 'utf8'),
   ])
   const links = [...files.join('\n').matchAll(/<a\s[^>]*target="_blank"[^>]*>/g)].map(([link]) => link)
@@ -86,7 +90,7 @@ test('links em nova aba não compartilham o contexto da página', async () => {
 })
 
 test('apresentação do fundador fica compacta no rodapé', async () => {
-  const app = await readFile(new URL('../src/App.jsx', import.meta.url), 'utf8')
+  const app = await readFile(new URL('../src/pages/HomePage.jsx', import.meta.url), 'utf8')
 
   assert.match(app, /<footer id="sobre">/)
   assert.match(app, /Prazer, eu sou o Leonardo\./)
@@ -95,7 +99,7 @@ test('apresentação do fundador fica compacta no rodapé', async () => {
 })
 
 test('navegação mobile ocupa a tela e mantém acesso por teclado', async () => {
-  const app = await readFile(new URL('../src/App.jsx', import.meta.url), 'utf8')
+  const app = await readFile(new URL('../src/pages/HomePage.jsx', import.meta.url), 'utf8')
   const header = await readFile(new URL('../src/components/Header.jsx', import.meta.url), 'utf8')
   const styles = await readFile(new URL('../src/styles.css', import.meta.url), 'utf8')
 

@@ -11,4 +11,5 @@ dist
 *.log
 playwright-report
 test-results
+src/generated/cadernos.js
 .DS_Store

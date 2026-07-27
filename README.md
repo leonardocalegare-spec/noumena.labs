@@ -14,6 +14,7 @@ O site apresenta:
 - Landing pages;
 - Consultoria em TI;
 - Projetos e cases;
+- Cadernos com vídeos autorais, estudos e aprendizados;
 - Processo de trabalho;
 - Perguntas frequentes;
 - Informações sobre o fundador;
@@ -29,7 +30,9 @@ O site apresenta:
 - GitHub Pages;
 - Node.js Test Runner;
 - Playwright;
-- ESLint.
+- ESLint;
+- React Router;
+- Markdown editorial.
 
 ## Executando localmente
 
@@ -93,6 +96,36 @@ npm run test:e2e
 Executa os testes reais de interface em perfis desktop e mobile.
 
 ```bash
+npm run content:new
+```
+
+Cria um rascunho dos Cadernos por meio de perguntas no terminal.
+
+```bash
+npm run content:check
+```
+
+Valida metadados, slugs, códigos e requisitos de publicação.
+
+```bash
+npm run content:list
+```
+
+Lista os conteúdos e seus estados editoriais.
+
+```bash
+npm run content:publish -- slug-da-publicacao
+```
+
+Publica um rascunho válido e preenche as datas editoriais.
+
+```bash
+npm run content:archive -- slug-da-publicacao
+```
+
+Retira uma publicação das listagens sem apagar seu histórico.
+
+```bash
 npm run build
 ```
 
@@ -120,6 +153,7 @@ noumena.labs/
 │   │   └── security.yml
 │   └── dependabot.yml
 ├── e2e/
+├── scripts/
 ├── public/
 │   ├── cases/
 │   ├── fonts/
@@ -130,8 +164,10 @@ noumena.labs/
 │   └── og-image.png
 ├── src/
 │   ├── components/
+│   ├── content/
 │   ├── data/
 │   ├── lib/
+│   ├── pages/
 │   ├── App.jsx
 │   ├── main.jsx
 │   └── styles.css
@@ -146,6 +182,8 @@ noumena.labs/
 ## Publicação
 
 O projeto é publicado automaticamente no GitHub Pages.
+
+O build também cria caminhos estáticos para `/cadernos/` e para cada publicação com `status: published`, permitindo acesso direto às páginas editoriais.
 
 Quando uma alteração é enviada para a branch `main`, o workflow:
 
@@ -213,6 +251,24 @@ Tecnologias e características apresentadas:
 - Validação dos dados;
 - Integração com Google Sheets;
 - Experiência responsiva.
+
+## Cadernos Noumena
+
+As publicações ficam em `src/content/cadernos` no formato Markdown. Cada arquivo contém título, slug, resumo, tipo, temas, estado editorial e o conteúdo completo.
+
+Primeira publicação:
+
+- [Da necessidade ao teste: como projetar interfaces para pessoas](https://leonardocalegare-spec.github.io/noumena.labs/cadernos/da-necessidade-ao-teste/)
+
+Os estados disponíveis são:
+
+- `draft`: aparece somente no desenvolvimento local;
+- `published`: entra no site e no sitemap;
+- `archived`: permanece no histórico, mas sai das listagens.
+
+Vídeos são hospedados no YouTube e reproduzidos no site por meio do domínio `youtube-nocookie.com`. O player é carregado somente depois da interação do visitante, não usa autoplay e sempre mantém um link alternativo para o YouTube.
+
+O rascunho `primeiro-video.md` é apenas um ponto de partida local e não entra no build público.
 
 ## Autor
 

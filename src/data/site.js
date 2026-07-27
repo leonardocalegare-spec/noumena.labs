@@ -15,23 +15,25 @@ export const generalProjectLink = `${whatsappBase}${encodeURIComponent('Olá, Le
 export const services = [
   {
     code: '01',
+    icon: 'code',
     eyebrow: 'PRESENÇA + CONVERSÃO',
     title: 'Landing pages',
     description: 'Páginas rápidas e responsivas para apresentar sua oferta com clareza e transformar interesse em conversas.',
     features: ['Mensagem e estrutura de conversão', 'Experiência responsiva', 'WhatsApp e publicação técnica'],
     cta: 'Quero uma landing page',
     href: `${whatsappBase}${encodeURIComponent('Olá, Leonardo! Encontrei a Noumena Labs e quero conversar sobre uma landing page.')}`,
-    accent: 'spectral',
+    variant: 'service-accent',
   },
   {
     code: '02',
+    icon: 'consulting',
     eyebrow: 'DECISÕES + DIREÇÃO',
     title: 'Consultoria em TI',
     description: 'Analisamos seu cenário para transformar dúvidas técnicas em prioridades e próximos passos viáveis.',
     features: ['Diagnóstico do cenário atual', 'Prioridades e alternativas', 'Plano de ação claro'],
     cta: 'Quero orientação em TI',
     href: `${whatsappBase}${encodeURIComponent('Olá, Leonardo! Encontrei a Noumena Labs e quero conversar sobre consultoria em TI.')}`,
-    accent: 'matter',
+    variant: 'service-neutral',
   },
 ]
 
@@ -42,9 +44,18 @@ export const projects = [
     title: 'Rede Credenciada Parkaz',
     description: 'Fluxo digital em seis etapas para organizar o cadastro de empresas interessadas em integrar a rede credenciada Parkaz, com validação dos dados ao longo da jornada.',
     story: [
-      ['Desafio', 'Organizar uma coleta extensa de dados empresariais sem transformar o cadastro em uma experiência confusa.'],
-      ['Estratégia', 'Dividir a jornada em seis etapas, mostrar o progresso e validar as informações no momento adequado.'],
-      ['Entrega', 'Interface responsiva publicada, integração com Google Sheets e uma experiência guiada do início ao envio.'],
+      {
+        label: 'Desafio',
+        value: 'Organizar uma coleta extensa de dados empresariais sem transformar o cadastro em uma experiência confusa.',
+      },
+      {
+        label: 'Estratégia',
+        value: 'Dividir a jornada em seis etapas, mostrar o progresso e validar as informações no momento adequado.',
+      },
+      {
+        label: 'Entrega',
+        value: 'Interface responsiva publicada, integração com Google Sheets e uma experiência guiada do início ao envio.',
+      },
     ],
     details: ['React + TypeScript', 'Formulário progressivo validado', 'Integração com Google Sheets'],
     liveUrl: 'https://redecredenciadaparkaz.vercel.app/',
@@ -94,8 +105,24 @@ export const faqItems = [
 ]
 
 export const processSteps = [
-  ['01', 'Entender', 'Você apresenta o contexto, o problema e o resultado esperado.'],
-  ['02', 'Direcionar', 'Definimos prioridades, escopo e o caminho mais adequado.'],
-  ['03', 'Construir', 'Desenvolvemos a solução com comunicação e validações frequentes.'],
-  ['04', 'Entregar e evoluir', 'Validamos o resultado e orientamos os próximos passos.'],
+  {
+    number: '01',
+    title: 'Entender',
+    description: 'Você apresenta o contexto, o problema e o resultado esperado.',
+  },
+  {
+    number: '02',
+    title: 'Direcionar',
+    description: 'Definimos prioridades, escopo e o caminho mais adequado.',
+  },
+  {
+    number: '03',
+    title: 'Construir',
+    description: 'Desenvolvemos a solução com comunicação e validações frequentes.',
+  },
+  {
+    number: '04',
+    title: 'Entregar e evoluir',
+    description: 'Validamos o resultado e orientamos os próximos passos.',
+  },
 ]
