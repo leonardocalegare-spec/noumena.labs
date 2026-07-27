@@ -162,11 +162,11 @@ function HomePage() {
           <div className="container hero-layout">
             <div className="hero-copy" data-reveal>
               <p className="eyebrow"><span className="status-dot" /><span>Desenvolvimento web · consultoria em TI</span></p>
-              <h1>A <span>tecnologia certa</span> para o próximo passo do seu negócio.</h1>
-              <p className="hero-text">Criamos landing pages claras e ajudamos pequenas empresas a decidir melhor onde e como usar tecnologia.</p>
+              <h1>Transformamos necessidades do seu negócio em <span>soluções digitais</span> claras e funcionais.</h1>
+              <p className="hero-text">Antes de recomendar uma página, ferramenta ou sistema, entendemos o problema, o objetivo e o que precisa mudar na prática.</p>
               <div className="hero-actions">
                 <a className="button" href="#contato">Conversar sobre meu projeto <Icon name="arrow" /></a>
-                <a className="text-link" href="#solucoes">Conhecer as soluções <Icon name="down" size={17} /></a>
+                <a className="text-link" href="#solucoes">Entender como podemos ajudar <Icon name="down" size={17} /></a>
               </div>
               <div className="hero-meta"><span>BRASIL</span><i /><span>DESIGN</span><i /><span>TECNOLOGIA</span><i /><span>ESTRATÉGIA</span></div>
             </div>
@@ -178,8 +178,8 @@ function HomePage() {
           <div className="container manifesto-grid" data-reveal>
             <p className="section-label"><span>01</span> ANTES DE CONSTRUIR</p>
             <div>
-              <p className="manifesto-lead">Seu negócio não precisa de mais tecnologia. Precisa da tecnologia certa.</p>
-              <p className="manifesto-copy">Uma página bonita que não explica sua oferta não gera oportunidades. Uma ferramenta que não resolve o problema só aumenta a complexidade. Por isso, começamos entendendo o seu contexto antes de recomendar ou construir qualquer solução.</p>
+              <p className="manifesto-lead">Antes de escolher a tecnologia, precisamos entender o que ela deve melhorar.</p>
+              <p className="manifesto-copy">Uma página pode ter um bom visual e ainda não explicar por que um cliente deveria entrar em contato. Uma ferramenta pode automatizar uma tarefa e continuar deixando o processo confuso. Por isso, primeiro entendemos o objetivo, as pessoas envolvidas e o resultado esperado. Só então definimos o que vale orientar, melhorar ou construir.</p>
             </div>
           </div>
         </section>
@@ -187,8 +187,8 @@ function HomePage() {
         <section className="solutions section-pad" id="solucoes">
           <div className="container">
             <div className="section-heading" data-reveal>
-              <div><p className="section-label"><span>02</span> COMO PODEMOS AJUDAR</p><h2>Soluções para avançar<br /> com mais clareza.</h2></div>
-              <p>Começamos com duas formas diretas de fortalecer sua presença, reduzir incertezas e colocar o próximo passo em movimento.</p>
+              <div><p className="section-label"><span>02</span> COMO PODEMOS AJUDAR</p><h2>Dois caminhos para<br /> necessidades diferentes.</h2></div>
+              <p>Se você precisa apresentar melhor uma oferta, criamos uma landing page clara. Se precisa decidir como usar tecnologia, analisamos o cenário e organizamos prioridades. Outros desafios também podem ser avaliados.</p>
             </div>
             <div className="service-grid">
               {services.map((service) => (
@@ -213,8 +213,8 @@ function HomePage() {
         <section className="projects section-pad" id="projetos">
           <div className="container">
             <div className="section-heading project-heading" data-reveal>
-              <div><p className="section-label"><span>03</span> PROJETO EM DESTAQUE</p><h2>Da necessidade<br /> à solução funcional.</h2></div>
-              <p>Um recorte de como estratégia, experiência e implementação técnica se encontram em um projeto real.</p>
+              <div><p className="section-label"><span>03</span> PROJETO EM DESTAQUE</p><h2>Um problema real,<br /> da análise à entrega.</h2></div>
+              <p>Neste projeto, uma coleta extensa de dados empresariais foi transformada em uma jornada digital guiada, responsiva e mais fácil de acompanhar.</p>
             </div>
             {projects.map((project) => (
               <article className="project-card" data-reveal key={project.title}>
@@ -243,8 +243,8 @@ function HomePage() {
           <div className="container process-layout">
             <div className="process-intro" data-reveal>
               <p className="section-label"><span>04</span> COMO TRABALHAMOS</p>
-              <h2>Clareza do primeiro<br /> contato à entrega.</h2>
-              <p>Você acompanha as decisões, entende o que está sendo construído e sabe qual é o próximo passo em cada etapa.</p>
+              <h2>Você entende o caminho<br /> antes e durante a construção.</h2>
+              <p>Primeiro organizamos a necessidade. Depois, definimos prioridades, construímos com validações e entregamos uma solução preparada para continuar evoluindo.</p>
             </div>
             <div className="steps" data-reveal>
               {processSteps.map((step) => (
@@ -260,8 +260,8 @@ function HomePage() {
           <div className="container faq-layout">
             <div className="faq-intro" data-reveal>
               <p className="section-label"><span>05</span> PERGUNTAS FREQUENTES</p>
-              <h2>Antes de iniciar,<br /> vale saber.</h2>
-              <p>Respostas diretas para reduzir dúvidas e facilitar o primeiro passo.</p>
+              <h2>O que você precisa saber<br /> antes de começar.</h2>
+              <p>Você não precisa chegar com um escopo pronto. As respostas abaixo explicam como funciona o primeiro contato e quais projetos podemos avaliar.</p>
             </div>
             <div className="faq-list" data-reveal>
               {faqItems.map((item, index) => (
@@ -278,8 +278,8 @@ function HomePage() {
           <div className="container contact-card" data-reveal onPointerMove={(event) => setPointerPosition(event.currentTarget, event)} onPointerLeave={(event) => resetPointerPosition(event.currentTarget)}>
             <div className="contact-glow" />
             <p className="eyebrow"><span className="status-dot" /> Vamos conversar</p>
-            <h2>Qual é o próximo passo<br /> do seu negócio?</h2>
-            <p>Conte o que você deseja construir, melhorar ou entender. Vamos analisar o cenário e identificar um caminho possível.</p>
+            <h2>Conte o que precisa mudar<br /> no seu negócio.</h2>
+            <p>Você pode começar explicando o cenário, a dificuldade e o resultado que espera alcançar. A partir disso, analisamos a necessidade e identificamos um caminho possível.</p>
             <div className="contact-links">
               {contactLinks.map((link) => <a className="button" href={link.href} target="_blank" rel="noreferrer" key={link.label}>Conversar no {link.label} <Icon name="external" size={18} /></a>)}
               <span>CONTATO DIRETO COM LEONARDO · +55 11 91821-8635</span>

@@ -23,8 +23,8 @@ export default function CadernosPage() {
   return (
     <>
       <PageMeta
-        title="Cadernos Noumena — Vídeos, estudos e aprendizados"
-        description="Vídeos autorais, estudos e aprendizados compartilhados em construção pela Noumena Labs."
+        title="Cadernos Noumena — Estudos, dicas e projetos"
+        description="Estudos, dicas, experimentos e decisões de projeto compartilhados pela Noumena Labs."
         canonicalPath={`${import.meta.env.BASE_URL}cadernos/`}
       />
       <a className="skip-link" href="#conteudo-principal">Pular para o conteúdo</a>
@@ -36,7 +36,7 @@ export default function CadernosPage() {
             <div>
               <p className="section-label"><span>N/LOG</span> ARQUIVO VIVO</p>
               <h1>Cadernos<br /> <span>Noumena.</span></h1>
-              <p>Vídeos, estudos e aprendizados publicados com contexto — do primeiro experimento ao que mudou depois dele.</p>
+              <p>Estudos, dicas, experimentos e decisões de projeto publicados com contexto — um registro contínuo do conhecimento desenvolvido na prática.</p>
             </div>
             <div className="cadernos-hero-index" aria-hidden="true">
               <CadernosHeroVisual />

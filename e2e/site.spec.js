@@ -7,7 +7,7 @@ test('carrega sem rolagem horizontal ou erros no console', async ({ page }) => {
   })
 
   await page.goto('/')
-  await expect(page.getByRole('heading', { name: /tecnologia certa/i })).toBeVisible()
+  await expect(page.getByRole('heading', { name: /transformamos necessidades do seu negócio/i })).toBeVisible()
   await expect.poll(() => page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth)).toBe(true)
   expect(errors).toEqual([])
 })
@@ -23,7 +23,7 @@ test('mantém conteúdo e navegação coerentes ao rolar', async ({ page, isMobi
   test.skip(isMobile, 'Estado ativo da navegação é exibido no desktop')
   await page.goto('/#projetos')
 
-  await expect(page.getByRole('heading', { name: /da necessidade à solução funcional/i })).toBeVisible()
+  await expect(page.getByRole('heading', { name: /um problema real, da análise à entrega/i })).toBeVisible()
   await expect(page.getByRole('link', { name: 'Projeto', exact: true })).toHaveAttribute('aria-current', 'location')
 })
 
@@ -31,7 +31,7 @@ test('preserva o conteúdo com movimento reduzido', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' })
   await page.goto('/')
 
-  const solutionsHeading = page.getByRole('heading', { name: /soluções para avançar/i })
+  const solutionsHeading = page.getByRole('heading', { name: /dois caminhos para necessidades diferentes/i })
   await solutionsHeading.scrollIntoViewIfNeeded()
   await expect(solutionsHeading).toBeVisible()
 })
@@ -64,7 +64,7 @@ test('contato móvel não cobre as seções de conteúdo', async ({ page, isMobi
 
   const mobileContact = page.getByRole('link', { name: 'Conversar com Leonardo pelo WhatsApp' })
   await expect(mobileContact).toBeVisible()
-  await page.getByRole('heading', { name: /soluções para avançar/i }).scrollIntoViewIfNeeded()
+  await page.getByRole('heading', { name: /dois caminhos para necessidades diferentes/i }).scrollIntoViewIfNeeded()
   await expect(mobileContact).toBeHidden()
 })
 

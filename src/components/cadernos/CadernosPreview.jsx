@@ -11,9 +11,9 @@ export default function CadernosPreview({ items }) {
         <div className="section-heading" data-reveal>
           <div>
             <p className="section-label"><span>N/LOG</span> CADERNOS NOUMENA</p>
-            <h2>Ideias que continuam<br /> em construção.</h2>
+            <h2>Mais do que mostrar projetos,<br /> explicamos como são construídos.</h2>
           </div>
-          <p>Vídeos autorais, estudos e aprendizados registrados com contexto, referências e espaço para aprofundar.</p>
+          <p>Os Cadernos Noumena reúnem estudos, dicas, experimentos e decisões de projeto — um registro contínuo do conhecimento desenvolvido na prática.</p>
         </div>
 
         {items.length > 0 ? (
@@ -26,7 +26,7 @@ export default function CadernosPreview({ items }) {
             <div>
               <span className="article-kicker">N/LOG · EM PREPARAÇÃO</span>
               <h3>O primeiro Caderno está em preparação.</h3>
-              <p>Este espaço reunirá vídeos, estudos e aprendizados da Noumena Labs quando o primeiro conteúdo estiver pronto.</p>
+              <p>Este espaço reunirá estudos, dicas, experimentos e decisões de projeto quando o primeiro conteúdo estiver pronto.</p>
               <a className="text-link" href={cadernosUrl}>Conhecer os Cadernos <Icon name="arrow" size={17} /></a>
             </div>
           </div>
