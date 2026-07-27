@@ -42,8 +42,8 @@ async function createRoute(relativePath, metadata) {
 }
 
 await createRoute('cadernos', {
-  title: 'Cadernos Noumena — Vídeos, estudos e aprendizados',
-  description: 'Vídeos autorais, estudos e aprendizados compartilhados em construção pela Noumena Labs.',
+  title: 'Cadernos Noumena — Estudos, dicas e projetos',
+  description: 'Estudos, dicas, experimentos e decisões de projeto compartilhados pela Noumena Labs.',
   url: `${siteUrl}cadernos/`,
 })
 
