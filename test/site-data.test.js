@@ -29,3 +29,10 @@ test('FAQ cobre as dúvidas essenciais antes do contato', () => {
   assert.ok(faqItems.length >= 4)
   assert.ok(faqItems.every(({ question, answer }) => question.length > 10 && answer.length > 25))
 })
+
+test('FAQ apresenta a origem pessoal do nome Noumena antes das dúvidas comerciais', () => {
+  assert.equal(faqItems.length, 5)
+  assert.equal(faqItems[0].question, 'O que significa o nome Noumena?')
+  assert.match(faqItems[0].answer, /meu gosto pela leitura de Immanuel Kant/)
+  assert.match(faqItems[0].answer, /antes de construir uma solução/)
+})

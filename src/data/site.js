@@ -87,6 +87,10 @@ export const projects = [
 
 export const faqItems = [
   {
+    question: 'O que significa o nome Noumena?',
+    answer: 'O nome Noumena nasceu do meu gosto pela leitura de Immanuel Kant. Ele se inspira na ideia de olhar além da forma como as coisas aparecem à primeira vista. Essa referência combina com a maneira como penso tecnologia: antes de construir uma solução, procuro compreender o problema com mais profundidade.',
+  },
+  {
     question: 'A Noumena Labs atende apenas landing pages e consultoria?',
     answer: 'Não. Essas são as ofertas iniciais, mas avaliamos automações, produtos digitais, sistemas e outros desafios que usem tecnologia para resolver um problema real.',
   },

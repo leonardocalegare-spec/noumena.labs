@@ -261,7 +261,7 @@ function HomePage() {
             <div className="faq-intro" data-reveal>
               <p className="section-label"><span>05</span> PERGUNTAS FREQUENTES</p>
               <h2>O que você precisa saber<br /> antes de começar.</h2>
-              <p>Você não precisa chegar com um escopo pronto. As respostas abaixo explicam como funciona o primeiro contato e quais projetos podemos avaliar.</p>
+              <p>Você não precisa chegar com um escopo pronto. As respostas abaixo explicam a origem da Noumena, como funciona o primeiro contato e quais projetos podemos avaliar.</p>
             </div>
             <div className="faq-list" data-reveal>
               {faqItems.map((item, index) => (
