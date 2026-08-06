@@ -305,7 +305,7 @@ function HomePage() {
             <h2>Prazer, eu sou o Leonardo.</h2>
             <p>Sou estudante de Ciência da Computação e fundador da Noumena Labs. Gosto de transformar problemas ainda confusos em soluções digitais claras, úteis e bem construídas.</p>
             <p>Estou sempre estudando, experimentando novas tecnologias e criando aplicações que aproximam boas ideias de necessidades reais.</p>
-            <p className="founder-philosophy">A Noumena nasce desse movimento: compreender a essência do problema antes de decidir o que construir.</p>
+            <p className="founder-philosophy">A Noumena Labs é minha marca pessoal e meu laboratório de tecnologia — um espaço onde reúno projetos, estudos e soluções construídas a partir de problemas reais. Ela nasce desse movimento: compreender o problema com profundidade antes de decidir o que construir.</p>
             <div className="founder-signature"><span>Leonardo Henrique Calegare</span><small>FUNDADOR DA NOUMENA LABS · CIÊNCIA DA COMPUTAÇÃO</small></div>
           </div>
         </div>
