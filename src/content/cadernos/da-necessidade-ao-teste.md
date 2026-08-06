@@ -13,7 +13,7 @@ topics:
 publishedAt: "2026-07-27"
 updatedAt: "2026-07-27"
 status: "published"
-featured: true
+featured: false
 ---
 
 ## Uma interface não começa na tela

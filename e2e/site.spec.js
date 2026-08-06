@@ -36,13 +36,13 @@ test('preserva o conteúdo com movimento reduzido', async ({ page }) => {
   await expect(solutionsHeading).toBeVisible()
 })
 
-test('destaca o primeiro Caderno publicado na página inicial', async ({ page }) => {
+test('destaca o estudo mais recente na página inicial', async ({ page }) => {
   await page.goto('/')
 
-  const previewHeading = page.getByRole('heading', { name: 'Da necessidade ao teste: como projetar interfaces para pessoas' })
+  const previewHeading = page.getByRole('heading', { name: 'Do componente ao diagnóstico: o que aprendi sobre suporte de TI' })
   await previewHeading.scrollIntoViewIfNeeded()
   await expect(previewHeading).toBeVisible()
-  await expect(page.locator('.cadernos-preview .article-card.featured .content-cover--interaction')).toBeVisible()
+  await expect(page.locator('.cadernos-preview .article-card.featured .content-cover--support')).toBeVisible()
   await expect(page.locator('.cadernos-preview .preview-empty')).toHaveCount(0)
 })
 
@@ -75,8 +75,20 @@ test('abre os Cadernos e preserva a navegação editorial', async ({ page, isMob
   if (isMobile) await page.getByRole('button', { name: 'Abrir menu' }).click()
   await expect(page.getByRole('link', { name: 'Cadernos', exact: true })).toHaveAttribute('aria-current', 'page')
   await expect(page.locator('.noumena-dialogue')).toBeVisible()
-  await expect(page.locator('.article-card.featured .content-cover--interaction')).toBeVisible()
+  await expect(page.locator('.article-card.featured .content-cover--support')).toBeVisible()
   await expect(page.locator('.article-card.featured').getByText('ESTUDO', { exact: true })).toBeVisible()
+  await expect.poll(() => page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth)).toBe(true)
+})
+
+test('renderiza a capa autoral do estudo de Suporte de TI', async ({ page }) => {
+  await page.goto('/cadernos/do-componente-ao-diagnostico/')
+
+  await expect(page.getByRole('heading', { name: 'Do componente ao diagnóstico: o que aprendi sobre suporte de TI' })).toBeVisible()
+  await expect(page.locator('.article-hero-meta').getByText('EST/002', { exact: true })).toBeVisible()
+  await expect(page.getByText('#suporte de TI', { exact: true })).toBeVisible()
+  await expect(page.getByRole('complementary', { name: 'Nesta página' })).toBeVisible()
+  await expect(page.locator('.article-media .content-cover--support')).toBeVisible()
+  await expect(page.locator('.article-media .support-diagnostic')).toBeVisible()
   await expect.poll(() => page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth)).toBe(true)
 })
 

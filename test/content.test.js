@@ -31,7 +31,7 @@ test('mantém o conteúdo inicial como rascunho privado válido', async () => {
   assert.ok(item.headings.length >= 3)
 })
 
-test('mantém o primeiro estudo dos Cadernos publicado e em destaque', async () => {
+test('mantém o primeiro estudo dos Cadernos publicado no arquivo editorial', async () => {
   const source = await readFile(new URL('../src/content/cadernos/da-necessidade-ao-teste.md', import.meta.url), 'utf8')
   const parsed = parseCadernoSource(source, 'da-necessidade-ao-teste.md')
   const errors = validateCaderno(parsed, 'da-necessidade-ao-teste.md')
@@ -41,9 +41,23 @@ test('mantém o primeiro estudo dos Cadernos publicado e em destaque', async () 
   assert.equal(item.status, 'published')
   assert.equal(item.publishedAt, '2026-07-27')
   assert.equal(item.code, 'EST/001')
-  assert.equal(item.featured, true)
+  assert.equal(item.featured, false)
   assert.equal(item.cover, 'interaction-map')
   assert.ok(item.headings.length >= 10)
+})
+
+test('mantém o estudo de Suporte de TI publicado como novo destaque', async () => {
+  const source = await readFile(new URL('../src/content/cadernos/do-componente-ao-diagnostico.md', import.meta.url), 'utf8')
+  const parsed = parseCadernoSource(source, 'do-componente-ao-diagnostico.md')
+  const errors = validateCaderno(parsed, 'do-componente-ao-diagnostico.md')
+  const item = buildCaderno(parsed)
+
+  assert.deepEqual(errors, [])
+  assert.equal(item.status, 'published')
+  assert.equal(item.code, 'EST/002')
+  assert.equal(item.featured, true)
+  assert.equal(item.cover, 'support-diagnostic')
+  assert.ok(item.headings.length >= 9)
 })
 
 test('impede a publicação de vídeo sem ID válido', () => {
