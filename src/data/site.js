@@ -6,7 +6,7 @@ export const contactLinks = [
   },
 ]
 
-const whatsappBase = 'https://wa.me/5511918218635?text='
+export const whatsappBase = 'https://wa.me/5511918218635?text='
 const baseUrl = import.meta.env?.BASE_URL || '/'
 const assetUrl = (path) => `${baseUrl}${path.replace(/^\//, '')}`
 
@@ -18,7 +18,10 @@ export const services = [
     icon: 'code',
     eyebrow: 'PRESENÇA + CONVERSÃO',
     title: 'Landing pages',
-    description: 'Páginas rápidas e responsivas para apresentar sua oferta com clareza e transformar interesse em conversas.',
+    description:
+      'Páginas rápidas e responsivas para apresentar sua oferta com clareza e transformar interesse em conversas.',
+    fit: 'Para negócios que precisam apresentar uma oferta com mais clareza.',
+    problem: 'Mensagem confusa, ausência de página própria ou dependência exclusiva das redes sociais.',
     features: ['Mensagem e estrutura de conversão', 'Experiência responsiva', 'WhatsApp e publicação técnica'],
     cta: 'Quero uma landing page',
     href: `${whatsappBase}${encodeURIComponent('Olá, Leonardo! Encontrei a Noumena Labs e quero conversar sobre uma landing page.')}`,
@@ -30,6 +33,8 @@ export const services = [
     eyebrow: 'DECISÕES + DIREÇÃO',
     title: 'Consultoria em TI',
     description: 'Analisamos seu cenário para transformar dúvidas técnicas em prioridades e próximos passos viáveis.',
+    fit: 'Para quem precisa tomar uma decisão sobre tecnologia ou organizar prioridades.',
+    problem: 'Dúvida sobre qual solução escolher, o que melhorar ou por onde começar.',
     features: ['Diagnóstico do cenário atual', 'Prioridades e alternativas', 'Plano de ação claro'],
     cta: 'Quero orientação em TI',
     href: `${whatsappBase}${encodeURIComponent('Olá, Leonardo! Encontrei a Noumena Labs e quero conversar sobre consultoria em TI.')}`,
@@ -42,11 +47,13 @@ export const projects = [
     code: 'CASE 01',
     category: 'PRODUTO DIGITAL · FRONT-END',
     title: 'Rede Credenciada Parkaz',
-    description: 'Fluxo digital em seis etapas para organizar o cadastro de empresas interessadas em integrar a rede credenciada Parkaz, com validação dos dados ao longo da jornada.',
+    description:
+      'Fluxo digital em seis etapas para organizar o cadastro de empresas interessadas em integrar a rede credenciada Parkaz, com validação dos dados ao longo da jornada.',
     story: [
       {
         label: 'Desafio',
-        value: 'Organizar uma coleta extensa de dados empresariais sem transformar o cadastro em uma experiência confusa.',
+        value:
+          'Organizar uma coleta extensa de dados empresariais sem transformar o cadastro em uma experiência confusa.',
       },
       {
         label: 'Estratégia',
@@ -54,7 +61,8 @@ export const projects = [
       },
       {
         label: 'Entrega',
-        value: 'Interface responsiva publicada, integração com Google Sheets e uma experiência guiada do início ao envio.',
+        value:
+          'Interface responsiva publicada, integração com Google Sheets e uma experiência guiada do início ao envio.',
       },
     ],
     details: ['React + TypeScript', 'Formulário progressivo validado', 'Integração com Google Sheets'],
@@ -87,24 +95,29 @@ export const projects = [
 
 export const faqItems = [
   {
-    question: 'O que significa o nome Noumena?',
-    answer: 'O nome Noumena nasceu do meu gosto pela leitura de Immanuel Kant. Ele se inspira na ideia de olhar além da forma como as coisas aparecem à primeira vista. Essa referência combina com a maneira como penso tecnologia: antes de construir uma solução, procuro compreender o problema com mais profundidade.',
-  },
-  {
-    question: 'A Noumena Labs atende apenas landing pages e consultoria?',
-    answer: 'Não. Essas são as ofertas iniciais, mas avaliamos automações, produtos digitais, sistemas e outros desafios que usem tecnologia para resolver um problema real.',
-  },
-  {
     question: 'Como funciona o primeiro contato?',
-    answer: 'Você apresenta o contexto pelo WhatsApp. A partir disso, entendemos o objetivo, as prioridades e se existe um caminho em que a Noumena Labs possa ajudar.',
+    answer:
+      'Você apresenta o contexto pelo WhatsApp. A partir disso, entendemos o objetivo, as prioridades e se existe um caminho em que a Noumena Labs possa ajudar.',
   },
   {
     question: 'Já preciso ter um escopo pronto?',
-    answer: 'Não. Podemos começar por uma necessidade, uma ideia ou um problema. A definição do caminho e do escopo faz parte da etapa inicial.',
+    answer:
+      'Não. Podemos começar por uma necessidade, uma ideia ou um problema. A definição do caminho e do escopo faz parte da etapa inicial.',
+  },
+  {
+    question: 'A Noumena Labs atende apenas landing pages e consultoria?',
+    answer:
+      'Não. Essas são as ofertas iniciais, mas avaliamos automações, produtos digitais, sistemas e outros desafios que usem tecnologia para resolver um problema real.',
   },
   {
     question: 'O atendimento é remoto?',
-    answer: 'Sim. O atendimento pode ser feito remotamente para empresas de qualquer região do Brasil, com comunicação e validações ao longo do projeto.',
+    answer:
+      'Sim. O atendimento pode ser feito remotamente para empresas de qualquer região do Brasil, com comunicação e validações ao longo do projeto.',
+  },
+  {
+    question: 'O que significa o nome Noumena?',
+    answer:
+      'O nome Noumena nasceu do meu gosto pela leitura de Immanuel Kant. Ele se inspira na ideia de olhar além da forma como as coisas aparecem à primeira vista. Essa referência combina com a maneira como penso tecnologia: antes de construir uma solução, procuro compreender o problema com mais profundidade.',
   },
 ]
 

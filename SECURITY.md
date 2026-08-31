@@ -4,20 +4,23 @@
 
 Este repositório entrega uma aplicação estática. O site não possui autenticação, banco de dados, upload, formulário próprio ou API. Os contatos são links externos para o WhatsApp e o projeto Parkaz. Publicações em vídeo podem carregar o player do YouTube somente após uma ação do visitante.
 
-## Proteções implementadas
+## Proteções ativas no GitHub Pages
 
-- Content Security Policy restritiva, sem `unsafe-inline` ou `unsafe-eval`.
+- HTTPS e HSTS fornecidos pela infraestrutura do GitHub Pages.
+- Content Security Policy restritiva entregue pelo HTML, sem `unsafe-inline` ou `unsafe-eval`.
+- Política de referência `strict-origin-when-cross-origin` entregue pelo HTML.
 - Fontes hospedadas localmente, sem dependência de CSS ou arquivos de terceiros durante a navegação.
-- Bloqueio de enquadramento por terceiros contra clickjacking.
-- HTTPS obrigatório via HSTS no ambiente publicado.
-- Bloqueio de MIME sniffing e política de referência `strict-origin-when-cross-origin`.
 - Frames externos limitados exclusivamente a `youtube-nocookie.com`.
 - Dependências fixadas por versão e `package-lock.json` versionado.
-- Arquivos de ambiente, credenciais e chaves privadas ignorados pelo Git.
+- Arquivos de ambiente, credenciais, documentos internos e chaves privadas ignorados pelo Git.
 - Pipeline de CI com lint, testes, build e auditoria de dependências.
 - Links externos abertos com `rel="noreferrer"`.
 
-As configurações de headers estão em `vercel.json` para Vercel e em `public/_headers` para provedores compatíveis, como Netlify e Cloudflare Pages.
+## Proteções preparadas para hospedagens compatíveis
+
+As configurações completas de headers estão em `vercel.json` para Vercel e em `public/_headers` para provedores compatíveis, como Netlify e Cloudflare Pages. Nesses ambientes, elas também ativam bloqueio de enquadramento contra clickjacking, bloqueio de MIME sniffing, Permissions Policy e isolamento de origem.
+
+O GitHub Pages não interpreta `vercel.json` nem `public/_headers` como configuração de resposta HTTP. Por isso, essas proteções adicionais não devem ser consideradas ativas na publicação atual. A CSP do HTML reduz parte da lacuna, mas diretivas como `frame-ancestors` e headers como `X-Frame-Options` exigem uma hospedagem ou camada de entrega que permita configurar respostas HTTP.
 
 ## Checklist de publicação
 

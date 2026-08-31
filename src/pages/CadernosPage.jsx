@@ -8,15 +8,12 @@ import ContentCover from '../components/cadernos/ContentCover.jsx'
 import { contentTypes } from '../lib/articleSchema.js'
 import { visibleCadernos } from '../lib/content.js'
 
-const filters = [
-  ['all', 'Todos'],
-  ...Object.entries(contentTypes).map(([value, { label }]) => [value, `${label}s`]),
-]
+const filters = [['all', 'Todos'], ...Object.entries(contentTypes).map(([value, { label }]) => [value, `${label}s`])]
 
 export default function CadernosPage() {
   const [filter, setFilter] = useState('all')
   const items = useMemo(
-    () => filter === 'all' ? visibleCadernos : visibleCadernos.filter((item) => item.type === filter),
+    () => (filter === 'all' ? visibleCadernos : visibleCadernos.filter((item) => item.type === filter)),
     [filter],
   )
 
@@ -27,16 +24,26 @@ export default function CadernosPage() {
         description="Estudos, dicas, experimentos e decisões de projeto compartilhados pela Noumena Labs."
         canonicalPath={`${import.meta.env.BASE_URL}cadernos/`}
       />
-      <a className="skip-link" href="#conteudo-principal">Pular para o conteúdo</a>
+      <a className="skip-link" href="#conteudo-principal">
+        Pular para o conteúdo
+      </a>
       <Header />
       <main id="conteudo-principal" className="cadernos-page" tabIndex="-1">
         <section className="cadernos-hero">
           <div className="grid-overlay" />
           <div className="container cadernos-hero-grid">
             <div>
-              <p className="section-label"><span>N/LOG</span> ARQUIVO VIVO</p>
-              <h1>Cadernos<br /> <span>Noumena.</span></h1>
-              <p>Estudos, dicas, experimentos e decisões de projeto publicados com contexto — um registro contínuo do conhecimento desenvolvido na prática.</p>
+              <p className="section-label">
+                <span>N/LOG</span> ARQUIVO VIVO
+              </p>
+              <h1>
+                Cadernos
+                <br /> <span>Noumena.</span>
+              </h1>
+              <p>
+                Estudos, dicas, experimentos e decisões de projeto publicados com contexto — um registro contínuo do
+                conhecimento desenvolvido na prática.
+              </p>
             </div>
             <div className="cadernos-hero-index" aria-hidden="true">
               <CadernosHeroVisual />
@@ -52,7 +59,9 @@ export default function CadernosPage() {
           <div className="container">
             <div className="feed-heading">
               <div>
-                <p className="section-label"><span>ÍNDICE</span> PUBLICAÇÕES</p>
+                <p className="section-label">
+                  <span>ÍNDICE</span> PUBLICAÇÕES
+                </p>
                 <h2 id="cadernos-feed-title">Explorar o arquivo.</h2>
               </div>
               <div className="article-filters" aria-label="Filtrar publicações">
@@ -72,7 +81,9 @@ export default function CadernosPage() {
 
             {items.length > 0 ? (
               <div className="articles-grid">
-                {items.map((item, index) => <ArticleCard item={item} featured={index === 0} key={item.slug} />)}
+                {items.map((item, index) => (
+                  <ArticleCard item={item} featured={index === 0} key={item.slug} />
+                ))}
               </div>
             ) : (
               <div className="cadernos-empty">
@@ -80,14 +91,19 @@ export default function CadernosPage() {
                 <div>
                   <span>N/LOG · ARQUIVO ABERTO</span>
                   <h2>Nenhuma publicação neste filtro ainda.</h2>
-                  <p>O arquivo começa com o que vale documentar. Novos registros serão publicados conforme os estudos avançarem.</p>
+                  <p>
+                    O arquivo começa com o que vale documentar. Novos registros serão publicados conforme os estudos
+                    avançarem.
+                  </p>
                 </div>
               </div>
             )}
           </div>
         </section>
       </main>
-      <footer className="editorial-footer"><FooterBase /></footer>
+      <footer className="editorial-footer">
+        <FooterBase />
+      </footer>
     </>
   )
 }

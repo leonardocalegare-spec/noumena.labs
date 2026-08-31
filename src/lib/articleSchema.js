@@ -46,7 +46,8 @@ export function validateCaderno({ metadata, body }, file = 'conteúdo') {
   const add = (message) => errors.push(`${file}: ${message}`)
 
   if (!metadata.title || String(metadata.title).trim().length < 8) add('title deve ter pelo menos 8 caracteres')
-  if (!metadata.slug || !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(metadata.slug)) add('slug deve usar letras minúsculas, números e hífens')
+  if (!metadata.slug || !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(metadata.slug))
+    add('slug deve usar letras minúsculas, números e hífens')
   if (!metadata.summary || String(metadata.summary).trim().length < 30) add('summary deve ter pelo menos 30 caracteres')
   if (!contentTypes[metadata.type]) add('type deve ser video, study ou learning')
   if (!Number.isInteger(metadata.sequence) || metadata.sequence < 1) add('sequence deve ser um número inteiro positivo')
@@ -95,7 +96,11 @@ export function extractHeadings(markdown) {
 
     const match = line.match(/^(#{2,3})\s+(.+)$/)
     if (!match) return []
-    const text = match[2].replace(/[*_`[\]]/g, '').trim()
+    const text = match[2]
+      .replace(/!\[([^\]]*)\]\([^)]*\)/g, '$1')
+      .replace(/\[([^\]]+)\]\([^)]*\)/g, '$1')
+      .replace(/[*_`[\]]/g, '')
+      .trim()
     return [{ level: match[1].length, text, id: createHeadingId(text) }]
   })
 }
@@ -113,9 +118,7 @@ export function buildCaderno({ metadata, body }, sourcePath = '') {
     typeLabel: type.label,
     readingMinutes: Math.max(1, Math.ceil(wordCount / 220)),
     headings: extractHeadings(body),
-    video: metadata.type === 'video'
-      ? { ...metadata.video, id: youtubeId }
-      : undefined,
+    video: metadata.type === 'video' ? { ...metadata.video, id: youtubeId } : undefined,
   }
 }
 

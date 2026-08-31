@@ -3,7 +3,10 @@ import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { loadContentDocuments, projectRoot } from './content-utils.js'
 
-export function selectContentDocuments(documents, { includeDrafts = false, today = new Date().toISOString().slice(0, 10) } = {}) {
+export function selectContentDocuments(
+  documents,
+  { includeDrafts = false, today = new Date().toISOString().slice(0, 10) } = {},
+) {
   return documents
     .filter(({ item }) => {
       if (item.status === 'archived') return false

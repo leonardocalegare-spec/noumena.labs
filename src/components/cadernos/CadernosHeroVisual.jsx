@@ -53,7 +53,10 @@ export default function CadernosHeroVisual() {
 
       <div className="noumena-dialogue-stages">
         {stages.map(([label, index]) => (
-          <span key={label}><small>{index}</small>{label}</span>
+          <span key={label}>
+            <small>{index}</small>
+            {label}
+          </span>
         ))}
       </div>
       <div className="noumena-dialogue-index">N</div>

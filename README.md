@@ -283,6 +283,6 @@ https://leonardocalegare-spec.github.io/noumena.labs/
 
 ## Licença e uso
 
-Este é um projeto institucional da Noumena Labs.
+Este é um projeto institucional e proprietário da Noumena Labs.
 
-O conteúdo, a identidade visual, os textos e os materiais de apresentação não devem ser reutilizados comercialmente sem autorização.
+A consulta pública deste repositório não concede permissão para copiar, modificar, distribuir ou explorar comercialmente o código, o conteúdo, a identidade visual, os textos ou os materiais de apresentação. Consulte o arquivo [LICENSE](LICENSE).

@@ -30,7 +30,10 @@ function replaceMetadata(html, { title, description, url, type = 'website' }) {
     .replace(/<link rel="canonical" href=".*?" \/>/, `<link rel="canonical" href="${safeUrl}" />`)
     .replace(/<meta property="og:type" content=".*?" \/>/, `<meta property="og:type" content="${type}" />`)
     .replace(/<meta property="og:title" content=".*?" \/>/, `<meta property="og:title" content="${safeTitle}" />`)
-    .replace(/<meta property="og:description" content=".*?" \/>/, `<meta property="og:description" content="${safeDescription}" />`)
+    .replace(
+      /<meta property="og:description" content=".*?" \/>/,
+      `<meta property="og:description" content="${safeDescription}" />`,
+    )
     .replace(/<meta property="og:url" content=".*?" \/>/, `<meta property="og:url" content="${safeUrl}" />`)
 }
 
@@ -47,12 +50,16 @@ await createRoute('cadernos', {
   url: `${siteUrl}cadernos/`,
 })
 
-await Promise.all(published.map((item) => createRoute(path.join('cadernos', item.slug), {
-  title: `${item.title} — Cadernos Noumena`,
-  description: item.summary,
-  url: `${siteUrl}cadernos/${item.slug}/`,
-  type: 'article',
-})))
+await Promise.all(
+  published.map((item) =>
+    createRoute(path.join('cadernos', item.slug), {
+      title: `${item.title} — Cadernos Noumena`,
+      description: item.summary,
+      url: `${siteUrl}cadernos/${item.slug}/`,
+      type: 'article',
+    }),
+  ),
+)
 
 const sitemapEntries = [
   { loc: siteUrl, priority: '1.0' },

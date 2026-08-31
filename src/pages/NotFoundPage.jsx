@@ -11,16 +11,23 @@ export default function NotFoundPage() {
         description="O endereço informado não corresponde a uma página disponível."
         canonicalPath={import.meta.env.BASE_URL}
       />
+      <a className="skip-link" href="#conteudo-principal">
+        Pular para o conteúdo
+      </a>
       <Header />
-      <main className="not-found-page" id="conteudo-principal">
+      <main className="not-found-page" id="conteudo-principal" tabIndex="-1">
         <div className="container not-found-card">
           <span>ERRO/404</span>
           <h1>Esse registro não existe.</h1>
           <p>O endereço pode ter mudado ou ainda não foi publicado nos Cadernos Noumena.</p>
-          <a className="button" href={`${import.meta.env.BASE_URL}cadernos/`}>Explorar os Cadernos <Icon name="arrow" size={17} /></a>
+          <a className="button" href={`${import.meta.env.BASE_URL}cadernos/`}>
+            Explorar os Cadernos <Icon name="arrow" size={17} />
+          </a>
         </div>
       </main>
-      <footer className="editorial-footer"><FooterBase /></footer>
+      <footer className="editorial-footer">
+        <FooterBase />
+      </footer>
     </>
   )
 }

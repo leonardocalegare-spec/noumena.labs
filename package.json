@@ -9,6 +9,8 @@
     "prebuild": "npm run content:check && npm run content:generate",
     "build": "vite build && node scripts/postbuild.js",
     "lint": "eslint .",
+    "format": "prettier --write \"src/**/*.{js,jsx,css}\" \"scripts/**/*.js\" \"test/**/*.js\" \"e2e/**/*.js\" \"*.js\"",
+    "format:check": "prettier --check \"src/**/*.{js,jsx,css}\" \"scripts/**/*.js\" \"test/**/*.js\" \"e2e/**/*.js\" \"*.js\"",
     "test": "node --test",
     "pretest:e2e": "npm run content:generate:dev",
     "test:e2e": "playwright test",
@@ -38,6 +40,7 @@
     "eslint-plugin-react-hooks": "7.1.1",
     "eslint-plugin-react-refresh": "0.5.3",
     "globals": "17.7.0",
+    "prettier": "3.9.6",
     "vite": "8.1.5"
   }
 }

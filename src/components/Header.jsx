@@ -20,9 +20,7 @@ export default function Header() {
   const navRef = useRef(null)
   const isHome = location.pathname === '/'
   const baseUrl = import.meta.env.BASE_URL
-  const currentActiveId = isHome
-    ? activeId
-    : location.pathname.startsWith('/cadernos') ? 'cadernos' : ''
+  const currentActiveId = isHome ? activeId : location.pathname.startsWith('/cadernos') ? 'cadernos' : ''
 
   const itemHref = (id) => {
     if (id === 'cadernos') return `${baseUrl}cadernos/`
@@ -94,11 +92,17 @@ export default function Header() {
       }
     }
 
+    const onResize = () => {
+      if (window.innerWidth > 980) setOpen(false)
+    }
+
     document.addEventListener('keydown', onKeyDown)
+    window.addEventListener('resize', onResize)
     return () => {
       document.body.classList.remove('menu-open')
       window.clearTimeout(focusTimer)
       document.removeEventListener('keydown', onKeyDown)
+      window.removeEventListener('resize', onResize)
     }
   }, [open])
 
@@ -108,15 +112,36 @@ export default function Header() {
     <header className={`site-header${scrolled ? ' scrolled' : ''}${open ? ' menu-active' : ''}`}>
       <div className="header-inner">
         <Logo href={isHome ? '#inicio' : baseUrl} />
-        <nav ref={navRef} id="primary-navigation" className={open ? 'nav open' : 'nav'} aria-label="Navegação principal">
+        <nav
+          ref={navRef}
+          id="primary-navigation"
+          className={open ? 'nav open' : 'nav'}
+          aria-label="Navegação principal"
+        >
           {navItems.map(([id, label]) => (
-            <a className={currentActiveId === id ? 'active' : ''} key={id} href={itemHref(id)} onClick={close} aria-current={currentActiveId === id ? (id === 'cadernos' ? 'page' : 'location') : undefined}>
+            <a
+              className={currentActiveId === id ? 'active' : ''}
+              key={id}
+              href={itemHref(id)}
+              onClick={close}
+              aria-current={currentActiveId === id ? (id === 'cadernos' ? 'page' : 'location') : undefined}
+            >
               {label}
             </a>
           ))}
-          <a className="button button-small nav-cta" href={isHome ? '#contato' : `${baseUrl}#contato`} onClick={close}>Conversar sobre meu projeto <Icon name="arrow" size={17} /></a>
+          <a className="button button-small nav-cta" href={isHome ? '#contato' : `${baseUrl}#contato`} onClick={close}>
+            Conversar sobre meu projeto <Icon name="arrow" size={17} />
+          </a>
         </nav>
-        <button ref={menuButtonRef} className="menu-button" type="button" onClick={() => setOpen((current) => !current)} aria-controls="primary-navigation" aria-expanded={open} aria-label={open ? 'Fechar menu' : 'Abrir menu'}>
+        <button
+          ref={menuButtonRef}
+          className="menu-button"
+          type="button"
+          onClick={() => setOpen((current) => !current)}
+          aria-controls="primary-navigation"
+          aria-expanded={open}
+          aria-label={open ? 'Fechar menu' : 'Abrir menu'}
+        >
           <Icon name={open ? 'close' : 'menu'} />
         </button>
       </div>

@@ -16,7 +16,7 @@ import NotFoundPage from './NotFoundPage.jsx'
 
 function childText(children) {
   return Children.toArray(children)
-    .map((child) => typeof child === 'string' ? child : child?.props?.children ? childText(child.props.children) : '')
+    .map((child) => (typeof child === 'string' ? child : child?.props?.children ? childText(child.props.children) : ''))
     .join('')
 }
 
@@ -27,23 +27,33 @@ export default function CadernoPage() {
 
   const related = getRelatedCadernos(item)
   const canonicalPath = `${import.meta.env.BASE_URL}cadernos/${item.slug}/`
-  const duration = item.type === 'video' && item.video?.duration
-    ? item.video.duration
-    : `${item.readingMinutes} min de leitura`
+  const duration =
+    item.type === 'video' && item.video?.duration ? item.video.duration : `${item.readingMinutes} min de leitura`
 
   const markdownComponents = {
     h2: ({ children }) => <h2 id={createHeadingId(childText(children))}>{children}</h2>,
     h3: ({ children }) => <h3 id={createHeadingId(childText(children))}>{children}</h3>,
     a: ({ href, children }) => {
       const external = /^https?:\/\//.test(href || '')
-      return <a href={href} target={external ? '_blank' : undefined} rel={external ? 'noreferrer' : undefined}>{children}</a>
+      return (
+        <a href={href} target={external ? '_blank' : undefined} rel={external ? 'noreferrer' : undefined}>
+          {children}
+        </a>
+      )
     },
   }
 
   return (
     <>
-      <PageMeta title={`${item.title} — Cadernos Noumena`} description={item.summary} canonicalPath={canonicalPath} type="article" />
-      <a className="skip-link" href="#conteudo-principal">Pular para o conteúdo</a>
+      <PageMeta
+        title={`${item.title} — Cadernos Noumena`}
+        description={item.summary}
+        canonicalPath={canonicalPath}
+        type="article"
+      />
+      <a className="skip-link" href="#conteudo-principal">
+        Pular para o conteúdo
+      </a>
       <Header />
       <main id="conteudo-principal" className="article-page" tabIndex="-1">
         <header className="article-hero">
@@ -65,7 +75,11 @@ export default function CadernoPage() {
             </div>
             <h1>{item.title}</h1>
             <p>{item.summary}</p>
-            <div className="article-topics">{item.topics.map((topic) => <span key={topic}>#{topic}</span>)}</div>
+            <div className="article-topics">
+              {item.topics.map((topic) => (
+                <span key={topic}>#{topic}</span>
+              ))}
+            </div>
           </div>
         </header>
 
@@ -76,7 +90,9 @@ export default function CadernoPage() {
         <div className="container article-layout">
           <ArticleOutline headings={item.headings} />
           <article className="article-body">
-            <ReactMarkdown remarkPlugins={[remarkGfm]} components={markdownComponents}>{item.body}</ReactMarkdown>
+            <ReactMarkdown remarkPlugins={[remarkGfm]} components={markdownComponents}>
+              {item.body}
+            </ReactMarkdown>
           </article>
           <aside className="article-identity">
             <span>AUTOR</span>
@@ -95,18 +111,24 @@ export default function CadernoPage() {
             <div className="container">
               <div className="section-heading">
                 <div>
-                  <p className="section-label"><span>SEGUIR</span> CONTINUAR EXPLORANDO</p>
+                  <p className="section-label">
+                    <span>SEGUIR</span> CONTINUAR EXPLORANDO
+                  </p>
                   <h2 id="related-title">Outros registros.</h2>
                 </div>
               </div>
               <div className="articles-grid related-grid">
-                {related.map((relatedItem) => <ArticleCard item={relatedItem} key={relatedItem.slug} />)}
+                {related.map((relatedItem) => (
+                  <ArticleCard item={relatedItem} key={relatedItem.slug} />
+                ))}
               </div>
             </div>
           </section>
         )}
       </main>
-      <footer className="editorial-footer"><FooterBase /></footer>
+      <footer className="editorial-footer">
+        <FooterBase />
+      </footer>
     </>
   )
 }

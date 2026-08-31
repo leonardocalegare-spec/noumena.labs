@@ -6,22 +6,27 @@ import { buildCaderno, parseCadernoSource, validateCaderno } from '../src/lib/ar
 export const projectRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 export const contentDirectory = path.join(projectRoot, 'src', 'content', 'cadernos')
 
-export async function loadContentDocuments() {
-  const entries = await readdir(contentDirectory, { withFileTypes: true })
+export async function loadContentDocuments(directory = contentDirectory) {
+  const entries = await readdir(directory, { withFileTypes: true })
   const files = entries
     .filter((entry) => entry.isFile() && entry.name.endsWith('.md'))
-    .map((entry) => path.join(contentDirectory, entry.name))
+    .map((entry) => path.join(directory, entry.name))
 
-  return Promise.all(files.map(async (file) => {
-    const source = await readFile(file, 'utf8')
-    const parsed = parseCadernoSource(source, path.relative(projectRoot, file))
-    return {
-      file,
-      parsed,
-      errors: validateCaderno(parsed, path.relative(projectRoot, file)),
-      item: buildCaderno(parsed, path.relative(projectRoot, file)),
-    }
-  }))
+  return Promise.all(
+    files.map(async (file) => {
+      const source = await readFile(file, 'utf8')
+      const relativeFile = path.relative(projectRoot, file)
+      const parsed = parseCadernoSource(source, relativeFile)
+      const errors = validateCaderno(parsed, relativeFile)
+
+      return {
+        file,
+        parsed,
+        errors,
+        item: errors.length === 0 ? buildCaderno(parsed, relativeFile) : null,
+      }
+    }),
+  )
 }
 
 export function slugify(value) {

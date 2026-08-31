@@ -5,7 +5,7 @@ const byNewest = (left, right) => {
   return dateComparison || right.sequence - left.sequence
 }
 
-export const allCadernos = [...generatedCadernos].sort(byNewest)
+const allCadernos = [...generatedCadernos].sort(byNewest)
 export const publishedCadernos = allCadernos.filter((item) => item.status === 'published')
 export const visibleCadernos = allCadernos
 

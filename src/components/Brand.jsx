@@ -18,7 +18,9 @@ export function Logo({ href = import.meta.env.BASE_URL }) {
   return (
     <a className="logo" href={href} aria-label="Noumena Labs — início">
       <BrandMark className="logo-mark compact-mark" />
-      <span className="logo-type">NOUMENA <b>LABS</b></span>
+      <span className="logo-type">
+        NOUMENA <b>LABS</b>
+      </span>
     </a>
   )
 }

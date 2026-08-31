@@ -11,7 +11,13 @@ const basePath = import.meta.env.BASE_URL.replace(/\/$/, '') || '/'
 export default function App() {
   return (
     <BrowserRouter basename={basePath}>
-      <Suspense fallback={<div className="route-loading" role="status">Carregando experiência…</div>}>
+      <Suspense
+        fallback={
+          <div className="route-loading" role="status">
+            Carregando experiência…
+          </div>
+        }
+      >
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/cadernos" element={<CadernosPage />} />

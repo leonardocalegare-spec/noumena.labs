@@ -8,7 +8,14 @@ import { contentDirectory, loadContentDocuments, slugify } from './content-utils
 import { generateContent } from './generate-content.js'
 
 const prompt = createInterface({ input, output })
-const typeAliases = { video: 'video', vídeo: 'video', estudo: 'study', study: 'study', aprendizado: 'learning', learning: 'learning' }
+const typeAliases = {
+  video: 'video',
+  vídeo: 'video',
+  estudo: 'study',
+  study: 'study',
+  aprendizado: 'learning',
+  learning: 'learning',
+}
 
 try {
   const typeAnswer = (await prompt.question('Tipo (vídeo, estudo ou aprendizado): ')).trim().toLowerCase()
@@ -28,10 +35,8 @@ try {
   if (!topics.length) throw new Error('Informe ao menos um tema.')
   if (!slug) throw new Error('Não foi possível gerar um slug válido.')
   const documents = await loadContentDocuments()
-  const nextSequence = Math.max(
-    0,
-    ...documents.filter(({ item }) => item.type === type).map(({ item }) => item.sequence),
-  ) + 1
+  const nextSequence =
+    Math.max(0, ...documents.filter(({ item }) => item.type === type).map(({ item }) => item.sequence)) + 1
 
   const metadata = {
     title,
@@ -55,7 +60,9 @@ try {
 
   const file = path.join(contentDirectory, `${slug}.md`)
   await access(file).then(
-    () => { throw new Error(`Já existe uma publicação em ${file}`) },
+    () => {
+      throw new Error(`Já existe uma publicação em ${file}`)
+    },
     () => undefined,
   )
 

@@ -38,16 +38,25 @@ export default function VideoPlayer({ item }) {
           />
         </div>
       ) : (
-        <button className="video-poster" type="button" onClick={() => setActive(true)} aria-label={`Reproduzir ${item.title}`}>
+        <button
+          className="video-poster"
+          type="button"
+          onClick={() => setActive(true)}
+          aria-label={`Reproduzir ${item.title}`}
+        >
           <ContentCover item={item} />
-          <span className="video-play"><Icon name="play" size={28} /> Assistir no site</span>
+          <span className="video-play">
+            <Icon name="play" size={28} /> Assistir no site
+          </span>
           <small>O player do YouTube será carregado após o clique.</small>
         </button>
       )}
 
       <div className="video-shell-footer">
         <span>PLAYER INTEGRADO · PRIVACIDADE APRIMORADA</span>
-        <a href={youtubeUrl} target="_blank" rel="noreferrer">Abrir no YouTube <Icon name="external" size={16} /></a>
+        <a href={youtubeUrl} target="_blank" rel="noreferrer">
+          Abrir no YouTube <Icon name="external" size={16} />
+        </a>
       </div>
     </div>
   )

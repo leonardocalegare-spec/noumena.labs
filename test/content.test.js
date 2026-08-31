@@ -1,12 +1,16 @@
 import assert from 'node:assert/strict'
-import { readFile } from 'node:fs/promises'
+import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises'
+import { tmpdir } from 'node:os'
+import path from 'node:path'
 import test from 'node:test'
 import {
   buildCaderno,
+  extractHeadings,
   normalizeYouTubeId,
   parseCadernoSource,
   validateCaderno,
 } from '../src/lib/articleSchema.js'
+import { loadContentDocuments } from '../scripts/content-utils.js'
 import { selectContentDocuments } from '../scripts/generate-content.js'
 
 test('normaliza URLs suportadas do YouTube sem usar API', () => {
@@ -47,7 +51,10 @@ test('mantém o primeiro estudo dos Cadernos publicado no arquivo editorial', as
 })
 
 test('mantém o estudo de Suporte de TI publicado como novo destaque', async () => {
-  const source = await readFile(new URL('../src/content/cadernos/do-componente-ao-diagnostico.md', import.meta.url), 'utf8')
+  const source = await readFile(
+    new URL('../src/content/cadernos/do-componente-ao-diagnostico.md', import.meta.url),
+    'utf8',
+  )
   const parsed = parseCadernoSource(source, 'do-componente-ao-diagnostico.md')
   const errors = validateCaderno(parsed, 'do-componente-ao-diagnostico.md')
   const item = buildCaderno(parsed)
@@ -80,6 +87,43 @@ test('impede a publicação de vídeo sem ID válido', () => {
   assert.ok(validateCaderno(document).some((error) => /ID ou URL válida/.test(error)))
 })
 
+test('mantém os identificadores do sumário iguais aos títulos Markdown com links', () => {
+  assert.deepEqual(extractHeadings('## [Documentação](https://example.com)'), [
+    {
+      level: 2,
+      text: 'Documentação',
+      id: 'documentacao',
+    },
+  ])
+})
+
+test('relata um tipo editorial inválido sem tentar construir o documento', async () => {
+  const directory = await mkdtemp(path.join(tmpdir(), 'noumena-content-'))
+  const source = `---
+title: Conteúdo editorial inválido
+slug: conteudo-invalido
+summary: Resumo suficientemente detalhado para a validação editorial automatizada.
+type: desconhecido
+sequence: 1
+status: draft
+topics:
+  - teste
+featured: false
+---
+Este conteúdo contém palavras suficientes para alcançar o limite mínimo definido pela validação editorial e reproduzir um documento com tipo desconhecido.`
+
+  try {
+    await writeFile(path.join(directory, 'invalido.md'), source, 'utf8')
+    const documents = await loadContentDocuments(directory)
+
+    assert.equal(documents.length, 1)
+    assert.equal(documents[0].item, null)
+    assert.ok(documents[0].errors.some((error) => /type deve ser/.test(error)))
+  } finally {
+    await rm(directory, { recursive: true, force: true })
+  }
+})
+
 test('exclui rascunhos e caminhos locais da geração de produção', () => {
   const documents = [
     { item: { slug: 'publicado', status: 'published', publishedAt: '2026-07-20', sourcePath: 'privado/publicado.md' } },
@@ -89,8 +133,14 @@ test('exclui rascunhos e caminhos locais da geração de produção', () => {
   const production = selectContentDocuments(documents, { today: '2026-07-26' })
   const development = selectContentDocuments(documents, { includeDrafts: true, today: '2026-07-26' })
 
-  assert.deepEqual(production.map(({ slug }) => slug), ['publicado'])
-  assert.deepEqual(development.map(({ slug }) => slug), ['publicado', 'rascunho'])
+  assert.deepEqual(
+    production.map(({ slug }) => slug),
+    ['publicado'],
+  )
+  assert.deepEqual(
+    development.map(({ slug }) => slug),
+    ['publicado', 'rascunho'],
+  )
   assert.ok(production.every((item) => !('sourcePath' in item)))
 })
 

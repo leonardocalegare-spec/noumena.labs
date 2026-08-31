@@ -2,6 +2,7 @@ import assert from 'node:assert/strict'
 import { createHash } from 'node:crypto'
 import { readFile } from 'node:fs/promises'
 import test from 'node:test'
+import { parse } from 'yaml'
 
 const requiredHeaders = [
   'Content-Security-Policy',
@@ -36,12 +37,50 @@ test('CSP bloqueia execução e incorporação não autorizadas', async () => {
   assert.doesNotMatch(csp, /frame-src \*/)
 })
 
+test('GitHub Pages recebe no HTML as políticas compatíveis com metadados', async () => {
+  const html = await readFile(new URL('../index.html', import.meta.url), 'utf8')
+  const csp = html.match(/<meta http-equiv="Content-Security-Policy" content="([^"]+)" \/>/)?.[1]
+
+  assert.ok(csp, 'CSP por metadado ausente')
+  assert.match(csp, /default-src 'self'/)
+  assert.match(csp, /frame-src https:\/\/www\.youtube-nocookie\.com/)
+  assert.match(csp, /object-src 'none'/)
+  assert.doesNotMatch(csp, /frame-ancestors/)
+  assert.match(html, /<meta name="referrer" content="strict-origin-when-cross-origin" \/>/)
+})
+
 test('arquivo de headers estáticos permanece sincronizado', async () => {
   const config = JSON.parse(await readFile(new URL('../vercel.json', import.meta.url), 'utf8'))
   const staticHeaders = await readFile(new URL('../public/_headers', import.meta.url), 'utf8')
 
   config.headers[0].headers.forEach(({ key, value }) => {
     assert.ok(staticHeaders.includes(`${key}: ${value}`), `${key} divergente em public/_headers`)
+  })
+})
+
+test('workflows usam Actions imutáveis e menor privilégio no deploy', async () => {
+  const workflowFiles = [
+    new URL('../.github/workflows/deploy-pages.yml', import.meta.url),
+    new URL('../.github/workflows/security.yml', import.meta.url),
+  ]
+  const workflows = await Promise.all(workflowFiles.map(async (file) => parse(await readFile(file, 'utf8'))))
+  const actionReferences = workflows.flatMap((workflow) =>
+    Object.values(workflow.jobs)
+      .flatMap((job) => job.steps)
+      .map((step) => step.uses)
+      .filter((uses) => uses?.startsWith('actions/')),
+  )
+
+  actionReferences.forEach((uses) => {
+    const reference = uses.split('@')[1]
+    assert.match(reference, /^[0-9a-f]{40}$/, `${uses} não está fixada por SHA completo`)
+  })
+
+  const deployWorkflow = workflows[0]
+  assert.deepEqual(deployWorkflow.permissions, { contents: 'read' })
+  assert.deepEqual(deployWorkflow.jobs.deploy.permissions, {
+    pages: 'write',
+    'id-token': 'write',
   })
 })
 
@@ -117,4 +156,8 @@ test('arquivos de ambiente e chaves privadas não entram no Git', async () => {
   assert.match(gitignore, /^\.vercel$/m)
   assert.match(gitignore, /^\*\.pem$/m)
   assert.match(gitignore, /^\*\.key$/m)
+  assert.match(gitignore, /^AGENTS\.md$/m)
+  assert.match(gitignore, /^\/docs\/superpowers\/$/m)
+  assert.match(gitignore, /^\/output\/$/m)
+  assert.match(gitignore, /^\/tmp\/$/m)
 })

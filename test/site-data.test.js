@@ -8,8 +8,16 @@ test('mantém somente a Rede Credenciada Parkaz na vitrine', () => {
   assert.equal(projects.length, 1)
   assert.equal(projects[0].title, 'Rede Credenciada Parkaz')
   assert.equal(projects[0].slides.length, 3)
-  assert.deepEqual(projects[0].story.map(({ label }) => label), ['Desafio', 'Estratégia', 'Entrega'])
-  assert.ok(projects[0].slides.every(({ image, label, description, width, height }) => image.endsWith('.png') && label && description && width > 0 && height > 0))
+  assert.deepEqual(
+    projects[0].story.map(({ label }) => label),
+    ['Desafio', 'Estratégia', 'Entrega'],
+  )
+  assert.ok(
+    projects[0].slides.every(
+      ({ image, label, description, width, height }) =>
+        image.endsWith('.png') && label && description && width > 0 && height > 0,
+    ),
+  )
   assert.equal(projects[0].liveUrl, 'https://redecredenciadaparkaz.vercel.app/')
 })
 
@@ -30,9 +38,25 @@ test('FAQ cobre as dúvidas essenciais antes do contato', () => {
   assert.ok(faqItems.every(({ question, answer }) => question.length > 10 && answer.length > 25))
 })
 
-test('FAQ apresenta a origem pessoal do nome Noumena antes das dúvidas comerciais', () => {
-  assert.equal(faqItems.length, 5)
-  assert.equal(faqItems[0].question, 'O que significa o nome Noumena?')
-  assert.match(faqItems[0].answer, /meu gosto pela leitura de Immanuel Kant/)
-  assert.match(faqItems[0].answer, /antes de construir uma solução/)
+test('cada serviço explica indicação, problema e entregas', () => {
+  services.forEach(({ fit, problem, features }) => {
+    assert.ok(fit.length > 30)
+    assert.ok(problem.length > 30)
+    assert.equal(features.length, 3)
+  })
+})
+
+test('FAQ prioriza as dúvidas comerciais e preserva a origem do nome', () => {
+  assert.deepEqual(
+    faqItems.map(({ question }) => question),
+    [
+      'Como funciona o primeiro contato?',
+      'Já preciso ter um escopo pronto?',
+      'A Noumena Labs atende apenas landing pages e consultoria?',
+      'O atendimento é remoto?',
+      'O que significa o nome Noumena?',
+    ],
+  )
+  assert.match(faqItems.at(-1).answer, /meu gosto pela leitura de Immanuel Kant/)
+  assert.match(faqItems.at(-1).answer, /antes de construir uma solução/)
 })

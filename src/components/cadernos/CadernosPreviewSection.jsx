@@ -1,10 +1,8 @@
-import { featuredCaderno, publishedCadernos } from '../../lib/content.js'
+import { featuredCaderno } from '../../lib/content.js'
 import CadernosPreview from './CadernosPreview.jsx'
 
 export default function CadernosPreviewSection() {
-  const items = featuredCaderno
-    ? [featuredCaderno, ...publishedCadernos.filter((item) => item.slug !== featuredCaderno.slug)].slice(0, 3)
-    : []
+  const items = featuredCaderno ? [featuredCaderno] : []
 
   return <CadernosPreview items={items} />
 }
