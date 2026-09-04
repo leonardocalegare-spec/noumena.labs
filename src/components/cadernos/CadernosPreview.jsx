@@ -18,10 +18,6 @@ export default function CadernosPreview({ items }) {
               <br /> explicamos como são construídos.
             </h2>
           </div>
-          <p>
-            Os Cadernos Noumena reúnem estudos, dicas, experimentos e decisões de projeto — um registro contínuo do
-            conhecimento desenvolvido na prática.
-          </p>
         </div>
 
         {items.length > 0 ? (

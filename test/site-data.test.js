@@ -1,6 +1,14 @@
 import assert from 'node:assert/strict'
 import test from 'node:test'
-import { contactLinks, faqItems, generalProjectLink, projects, services } from '../src/data/site.js'
+import {
+  contactLinks,
+  faqItems,
+  generalProjectLink,
+  otherChallengesService,
+  projects,
+  servicePackages,
+  services,
+} from '../src/data/site.js'
 
 const whatsappNumber = '5511918218635'
 
@@ -22,15 +30,24 @@ test('mantém somente a Rede Credenciada Parkaz na vitrine', () => {
 })
 
 test('todos os contatos usam o número oficial do WhatsApp', () => {
-  const links = [generalProjectLink, ...contactLinks.map(({ href }) => href), ...services.map(({ href }) => href)]
+  const links = [
+    generalProjectLink,
+    ...contactLinks.map(({ href }) => href),
+    ...services.flatMap(({ offers }) => offers.map(({ href }) => href)),
+    ...servicePackages.map(({ href }) => href),
+    otherChallengesService.href,
+  ]
   assert.ok(links.every((href) => href.startsWith(`https://wa.me/${whatsappNumber}`)))
 })
 
-test('cada serviço inicia uma conversa específica', () => {
-  const messages = services.map(({ href }) => decodeURIComponent(new URL(href).searchParams.get('text')))
-  assert.match(messages[0], /landing page/i)
-  assert.match(messages[1], /consultoria em TI/i)
-  assert.notEqual(messages[0], messages[1])
+test('apresenta quatro categorias na ordem comercial aprovada', () => {
+  assert.deepEqual(
+    services.map(({ title }) => title),
+    ['Sites e catálogos', 'Presença local e atendimento', 'Planilhas e automações', 'Suporte e manutenção'],
+  )
+  assert.ok(services.every(({ description, offers }) => description.length > 40 && offers.length === 3))
+  assert.equal(otherChallengesService.title, 'Precisa de um sistema ou integração específica?')
+  assert.equal(otherChallengesService.isFuture, true)
 })
 
 test('FAQ cobre as dúvidas essenciais antes do contato', () => {
@@ -38,12 +55,15 @@ test('FAQ cobre as dúvidas essenciais antes do contato', () => {
   assert.ok(faqItems.every(({ question, answer }) => question.length > 10 && answer.length > 25))
 })
 
-test('cada serviço explica indicação, problema e entregas', () => {
-  services.forEach(({ fit, problem, features }) => {
-    assert.ok(fit.length > 30)
-    assert.ok(problem.length > 30)
-    assert.equal(features.length, 3)
-  })
+test('cada serviço inicia uma conversa específica', () => {
+  const offers = [...services.flatMap(({ offers }) => offers), ...servicePackages, otherChallengesService]
+  const messages = offers.map(({ href }) => new URL(href).searchParams.get('text'))
+  assert.equal(new Set(messages).size, offers.length)
+  assert.match(messages[0], /página profissional/i)
+  assert.match(messages[3], /WhatsApp Business/)
+  assert.match(messages[6], /planilha/i)
+  assert.match(messages[9], /suporte/i)
+  assert.match(messages.at(-1), /necessidade|desafio/i)
 })
 
 test('FAQ prioriza as dúvidas comerciais e preserva a origem do nome', () => {
@@ -52,7 +72,10 @@ test('FAQ prioriza as dúvidas comerciais e preserva a origem do nome', () => {
     [
       'Como funciona o primeiro contato?',
       'Já preciso ter um escopo pronto?',
-      'A Noumena Labs atende apenas landing pages e consultoria?',
+      'O que está incluído no preço?',
+      'Domínio, hospedagem e ferramentas estão incluídos?',
+      'Preciso contratar uma mensalidade?',
+      'E se eu precisar de um sistema personalizado?',
       'O atendimento é remoto?',
       'O que significa o nome Noumena?',
     ],

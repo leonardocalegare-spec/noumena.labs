@@ -128,12 +128,15 @@ test('links em nova aba não compartilham o contexto da página', async () => {
   assert.ok(links.every((link) => /rel="noreferrer"/.test(link)))
 })
 
-test('apresentação do fundador fica compacta no rodapé', async () => {
+test('rodapé mantém a marca e os contatos sem a apresentação do fundador', async () => {
   const app = await readFile(new URL('../src/pages/HomePage.jsx', import.meta.url), 'utf8')
 
   assert.match(app, /<footer id="sobre">/)
-  assert.match(app, /Prazer, eu sou o Leonardo\./)
-  assert.match(app, /Leonardo Henrique Calegare/)
+  assert.match(app, /className="container brand-contact"/)
+  assert.match(app, /<BrandMark className="brand-contact-mark" \/>/)
+  assert.match(app, />\s*LinkedIn <Icon name="linkedin"/)
+  assert.match(app, />\s*WhatsApp <Icon name="whatsapp"/)
+  assert.doesNotMatch(app, /Prazer, eu sou o Leonardo\.|Leonardo Henrique Calegare/)
   assert.doesNotMatch(app, /noumena_manifesto\.txt|className="about section-pad"/)
 })
 

@@ -1,6 +1,6 @@
 # Noumena Labs
 
-Site institucional da **Noumena Labs**, criado para apresentar serviços de desenvolvimento web, consultoria em TI, projetos realizados e formas de contato.
+Site institucional da **Noumena Labs**, criado para apresentar serviços, preços e escopos de tecnologia para pequenos negócios, projetos realizados e formas de contato.
 
 🔗 **Site publicado:**  
 https://leonardocalegare-spec.github.io/noumena.labs/
@@ -11,14 +11,31 @@ A Noumena Labs ajuda pequenas empresas a transformar necessidades e ideias em so
 
 O site apresenta:
 
-- Landing pages;
-- Consultoria em TI;
+- Sites e catálogos;
+- Presença local e atendimento;
+- Planilhas e automações;
+- Suporte e manutenção;
+- Pacotes Presença Digital e Negócio Online;
+- Sistemas e integrações específicas sob orçamento;
 - Projetos e cases;
 - Cadernos com vídeos autorais, estudos e aprendizados;
-- Processo de trabalho;
 - Perguntas frequentes;
-- Informações sobre o fundador;
 - Contato direto pelo WhatsApp.
+
+## Catálogo comercial
+
+Cada card apresenta uma categoria, três serviços e seus preços. Ao abrir uma categoria, o visitante encontra entregas, condições, custos externos e um contato específico pelo WhatsApp. O retorno preserva a categoria e o foco do teclado, inclusive após redimensionar a tela.
+
+Os dados públicos ficam em `src/data/site.js`; `src/utils/serviceOffers.js` formata o mesmo preço para a interface e a mensagem de contato. Valores internos de custo, margem e negociação não fazem parte do catálogo público.
+
+| Categoria | Ofertas base |
+|---|---|
+| Sites e catálogos | Página a partir de R$ 890; catálogo a partir de R$ 1.490; site institucional a partir de R$ 2.490 |
+| Presença local e atendimento | WhatsApp Business R$ 290; Perfil da Empresa no Google R$ 290; organização de clientes em CRM a partir de R$ 1.290 |
+| Planilhas e automações | Planilha a partir de R$ 990; automação a partir de R$ 2.190; painel a partir de R$ 2.490 |
+| Suporte e manutenção | Suporte remoto R$ 150 por sessão de até 1h; formatação a partir de R$ 390; manutenção de site R$ 190/mês |
+
+Os pacotes combinam escopos base: Presença Digital por R$ 1.090 e Negócio Online a partir de R$ 3.490. Domínio, hospedagem, licenças e consumo de terceiros são separados quando aplicáveis. A manutenção é opcional; não há checkout, cobrança automática, CRM operacional ou sistema personalizado implementado neste site.
 
 ## Tecnologias
 

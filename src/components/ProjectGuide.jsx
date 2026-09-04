@@ -4,6 +4,7 @@ import {
   buildProjectGuideHref,
   buildProjectGuideMessage,
   getProjectGuidePath,
+  getProjectGuideSituation,
   projectGuidePaths,
   resolveProjectGuideSelection,
 } from '../data/projectGuide.js'
@@ -22,6 +23,7 @@ export default function ProjectGuide() {
   const shouldFocusHeadingRef = useRef(false)
 
   const path = getProjectGuidePath(selections.needId)
+  const situation = getProjectGuideSituation(path, selections.situationId)
   const stepConfig =
     step === 'summary'
       ? null
@@ -42,8 +44,8 @@ export default function ProjectGuide() {
           },
           goal: {
             count: 3,
-            heading: path?.goalPrompt ?? 'O que espera alcançar?',
-            options: path?.goals ?? [],
+            heading: situation?.goalPrompt ?? 'O que você espera alcançar?',
+            options: situation?.goals ?? [],
             field: 'goalId',
             next: 'summary',
           },
@@ -173,10 +175,14 @@ export default function ProjectGuide() {
             ) : (
               <div className="project-guide-summary">
                 <h3 ref={headingRef} tabIndex="-1">
-                  Seu contexto está pronto
+                  Já temos um bom ponto de partida.
                 </h3>
                 {resolved && message && whatsappHref ? (
                   <>
+                    <p className="project-guide-summary-note">
+                      Revise as informações antes de continuar. Você poderá complementar ou alterar a mensagem no
+                      WhatsApp.
+                    </p>
                     <div className="project-guide-tags" aria-label="Resumo das escolhas">
                       <span>{resolved.path.label}</span>
                       <span>{resolved.situation.label}</span>
@@ -184,7 +190,7 @@ export default function ProjectGuide() {
                     </div>
                     <blockquote>{message}</blockquote>
                     <a className="button project-guide-whatsapp" href={whatsappHref} target="_blank" rel="noreferrer">
-                      <span>Conversar no WhatsApp</span> <Icon name="external" size={18} />
+                      <span>Continuar no WhatsApp</span> <Icon name="external" size={18} />
                     </a>
                   </>
                 ) : (

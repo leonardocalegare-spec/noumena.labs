@@ -2,11 +2,11 @@ import { useEffect, useRef, useState } from 'react'
 import { useLocation } from 'react-router'
 import Icon from './Icon.jsx'
 import { Logo } from './Brand.jsx'
+import { generalProjectLink } from '../data/contact.js'
 
 const navItems = [
   ['solucoes', 'Soluções'],
   ['projetos', 'Projeto'],
-  ['processo', 'Processo'],
   ['cadernos', 'Cadernos'],
   ['sobre', 'Sobre'],
 ]
@@ -129,7 +129,13 @@ export default function Header() {
               {label}
             </a>
           ))}
-          <a className="button button-small nav-cta" href={isHome ? '#contato' : `${baseUrl}#contato`} onClick={close}>
+          <a
+            className="button button-small nav-cta"
+            href={generalProjectLink}
+            target="_blank"
+            rel="noreferrer"
+            onClick={close}
+          >
             Conversar sobre meu projeto <Icon name="arrow" size={17} />
           </a>
         </nav>
