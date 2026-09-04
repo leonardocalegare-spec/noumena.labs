@@ -84,6 +84,14 @@ test('workflows usam Actions imutáveis e menor privilégio no deploy', async ()
   })
 })
 
+test('workflow do GitHub Pages gera o site na raiz do domínio próprio', async () => {
+  const workflow = parse(await readFile(new URL('../.github/workflows/deploy-pages.yml', import.meta.url), 'utf8'))
+  const buildStep = workflow.jobs.build.steps.find(({ name }) => name === 'Build for GitHub Pages')
+
+  assert.ok(buildStep)
+  assert.ok(!buildStep.env?.VITE_BASE_PATH || buildStep.env.VITE_BASE_PATH === '/')
+})
+
 test('hash CSP corresponde ao JSON-LD inline', async () => {
   const html = await readFile(new URL('../index.html', import.meta.url), 'utf8')
   const script = html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)?.[1]
@@ -107,7 +115,7 @@ test('SEO usa a URL pública atual e expõe arquivos de descoberta', async () =>
   const html = await readFile(new URL('../index.html', import.meta.url), 'utf8')
   const robots = await readFile(new URL('../public/robots.txt', import.meta.url), 'utf8')
   const sitemap = await readFile(new URL('../public/sitemap.xml', import.meta.url), 'utf8')
-  const publicUrl = 'https://leonardocalegare-spec.github.io/noumena.labs/'
+  const publicUrl = 'https://noumenalabs.com.br/'
 
   assert.match(html, new RegExp(`<link rel="canonical" href="${publicUrl}"`))
   assert.match(html, new RegExp(`<meta property="og:url" content="${publicUrl}"`))

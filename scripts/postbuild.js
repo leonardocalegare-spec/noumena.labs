@@ -4,7 +4,7 @@ import { loadContentDocuments, projectRoot } from './content-utils.js'
 
 const distDirectory = path.join(projectRoot, 'dist')
 const indexPath = path.join(distDirectory, 'index.html')
-const siteUrl = (process.env.SITE_URL || 'https://leonardocalegare-spec.github.io/noumena.labs/').replace(/\/?$/, '/')
+const siteUrl = (process.env.SITE_URL || 'https://noumenalabs.com.br/').replace(/\/?$/, '/')
 const today = new Date().toISOString().slice(0, 10)
 const documents = await loadContentDocuments()
 const published = documents

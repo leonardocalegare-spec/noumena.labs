@@ -3,7 +3,7 @@
 Site institucional da **Noumena Labs**, criado para apresentar serviços, preços e escopos de tecnologia para pequenos negócios, projetos realizados e formas de contato.
 
 🔗 **Site publicado:**  
-https://leonardocalegare-spec.github.io/noumena.labs/
+https://noumenalabs.com.br/
 
 ## Sobre o projeto
 
@@ -216,25 +216,19 @@ O andamento pode ser acompanhado na aba **Actions** do repositório.
 
 ## URL base
 
-Enquanto o projeto estiver publicado no endereço padrão do GitHub Pages, o build utiliza:
-
-```text
-/noumena.labs/
-```
-
-Essa configuração está definida no workflow de publicação por meio da variável:
-
-```text
-VITE_BASE_PATH
-```
-
-Quando um domínio próprio for conectado, essa base deverá ser alterada para:
+O domínio principal é servido a partir da raiz:
 
 ```text
 /
 ```
 
-As URLs canônicas, sociais e do sitemap também deverão ser atualizadas nessa ocasião.
+O `vite.config.js` usa essa raiz como padrão. O workflow de publicação não precisa definir um subdiretório por meio de:
+
+```text
+VITE_BASE_PATH
+```
+
+`VITE_BASE_PATH` continua disponível para algum build que precise explicitamente de outra base.
 
 ## Qualidade e segurança
 
@@ -275,7 +269,7 @@ As publicações ficam em `src/content/cadernos` no formato Markdown. Cada arqui
 
 Primeira publicação:
 
-- [Da necessidade ao teste: como projetar interfaces para pessoas](https://leonardocalegare-spec.github.io/noumena.labs/cadernos/da-necessidade-ao-teste/)
+- [Da necessidade ao teste: como projetar interfaces para pessoas](https://noumenalabs.com.br/cadernos/da-necessidade-ao-teste/)
 
 Os estados disponíveis são:
 
@@ -296,7 +290,7 @@ Fundador da Noumena Labs e estudante de Ciência da Computação.
 
 Entre em contato pelo site:
 
-https://leonardocalegare-spec.github.io/noumena.labs/
+https://noumenalabs.com.br/
 
 ## Licença e uso
 
