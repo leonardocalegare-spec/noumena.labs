@@ -441,7 +441,7 @@ test('destaca o estudo mais recente na página inicial', async ({ page }) => {
 test('oferece a marca e os contatos em um encerramento centralizado', async ({ page }) => {
   await page.goto('/#sobre')
   const contact = page.locator('.brand-contact')
-  const linkedin = contact.getByRole('link', { name: 'LinkedIn' })
+  const linkedin = contact.getByRole('link', { name: 'LinkedIn', exact: true })
   const whatsapp = contact.getByRole('link', { name: 'WhatsApp' })
 
   await expect(contact).toBeVisible()

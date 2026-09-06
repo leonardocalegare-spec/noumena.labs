@@ -323,6 +323,22 @@ function HomePage() {
           <div className="brand-contact-links">
             <a
               className="button button-small brand-contact-link"
+              href="https://www.instagram.com/noumenalabs/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Instagram <Icon name="instagram" size={17} />
+            </a>
+            <a
+              className="button button-small brand-contact-link"
+              href="https://www.linkedin.com/company/noumena-labs-tecnologia/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              LinkedIn Noumena Labs <Icon name="linkedin" size={17} />
+            </a>
+            <a
+              className="button button-small brand-contact-link"
               href="https://www.linkedin.com/in/leocalegare"
               target="_blank"
               rel="noreferrer"
