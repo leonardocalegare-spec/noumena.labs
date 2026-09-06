@@ -14,8 +14,7 @@ export default function CadernosPreview({ items }) {
               <span>N/LOG</span> CADERNOS NOUMENA
             </p>
             <h2>
-              Mais do que mostrar projetos,
-              <br /> explicamos como são construídos.
+              Aqui compartilho meus estudos e o que aprendo ao explorar novas tecnologias.
             </h2>
           </div>
         </div>
