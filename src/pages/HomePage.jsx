@@ -3,7 +3,6 @@ import Icon from '../components/Icon.jsx'
 import { BrandMark, Logo } from '../components/Brand.jsx'
 import Header from '../components/Header.jsx'
 import ProjectSlider from '../components/ProjectSlider.jsx'
-import ProjectGuide from '../components/ProjectGuide.jsx'
 import ServicesCarousel from '../components/ServicesCarousel.jsx'
 import {
   contactLinks,
@@ -105,27 +104,24 @@ function HomePage() {
 
   useEffect(() => {
     const heroAction = document.querySelector('.hero-actions .button')
-    const projectGuide = document.querySelector('#guia-projeto')
     const solutions = document.querySelector('#solucoes')
     const founder = document.querySelector('#sobre')
-    if (!heroAction || !projectGuide || !solutions || !founder || !('IntersectionObserver' in window)) return undefined
+    if (!heroAction || !solutions || !founder || !('IntersectionObserver' in window)) return undefined
 
     const isVisible = (element) => {
       const bounds = element.getBoundingClientRect()
       return bounds.bottom > 0 && bounds.top < window.innerHeight
     }
     let heroActionVisible = isVisible(heroAction)
-    let projectGuideVisible = isVisible(projectGuide)
     let solutionsVisible = isVisible(solutions)
     let founderVisible = isVisible(founder)
     const updateMobileContact = () =>
-      setShowMobileContact(!heroActionVisible && !projectGuideVisible && !solutionsVisible && !founderVisible)
+      setShowMobileContact(!heroActionVisible && !solutionsVisible && !founderVisible)
 
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.target === heroAction) heroActionVisible = entry.isIntersecting
-          if (entry.target === projectGuide) projectGuideVisible = entry.isIntersecting
           if (entry.target === solutions) solutionsVisible = entry.isIntersecting
           if (entry.target === founder) founderVisible = entry.isIntersecting
         })
@@ -136,7 +132,6 @@ function HomePage() {
 
     updateMobileContact()
     observer.observe(heroAction)
-    observer.observe(projectGuide)
     observer.observe(solutions)
     observer.observe(founder)
     return () => observer.disconnect()
@@ -159,7 +154,7 @@ function HomePage() {
         Pular para o conteúdo
       </a>
       <Header />
-      <main id="conteudo-principal" tabIndex="-1">
+      <main className="home-content" id="conteudo-principal" tabIndex="-1">
         <section className="hero" id="inicio">
           <div className="grid-overlay" />
           <div className="container hero-layout">
@@ -193,8 +188,6 @@ function HomePage() {
             <HeroVisual />
           </div>
         </section>
-
-        <ProjectGuide />
 
         <section className="solutions section-pad" id="solucoes" aria-labelledby="solutions-title">
           <div className="container">

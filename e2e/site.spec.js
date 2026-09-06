@@ -29,22 +29,9 @@ test('apresenta uma proposta ampla e direta na abertura', async ({ page }) => {
   await expect(page.locator('.hero-copy')).not.toContainText('—')
 })
 
-test('oferece um guia opcional imediatamente depois do hero', async ({ page }) => {
-  await page.goto('/')
-
-  const hero = page.locator('#inicio')
-  const guide = page.getByRole('region', { name: 'O que você precisa resolver?' })
-  await expect(guide).toBeVisible()
-  await expect(page.locator('#inicio + #guia-projeto')).toHaveCount(1)
-  await expect(guide.getByRole('button')).toHaveCount(6)
-  await expect(guide.getByRole('link', { name: 'Prefiro explorar as soluções' })).toHaveAttribute('href', '#solucoes')
-  await expect(hero).toBeVisible()
-})
-
 test('organiza a proposta comercial antes do conteúdo editorial', async ({ page }) => {
   await page.goto('/')
-  await expect(page.locator('#inicio + #guia-projeto')).toHaveCount(1)
-  await expect(page.locator('#guia-projeto + #solucoes')).toHaveCount(1)
+  await expect(page.locator('#inicio + #solucoes')).toHaveCount(1)
   await expect(page.locator('#solucoes + #projetos')).toHaveCount(1)
   await expect(page.locator('#projetos + #faq')).toHaveCount(1)
   await expect(page.locator('#processo')).toHaveCount(0)
@@ -218,113 +205,6 @@ test('mantém o título comercial sem coluna vazia no tablet', async ({ page }) 
     .toBe(true)
 })
 
-test('monta uma mensagem contextualizada em três escolhas rápidas', async ({ page }) => {
-  await page.goto('/#guia-projeto')
-  const guide = page.getByRole('region', { name: 'O que você precisa resolver?' })
-
-  await guide.getByRole('button', { name: 'Quero apresentar meu negócio e atender melhor' }).click()
-  await expect(guide.getByRole('heading', { name: 'O que mais precisa melhorar hoje?' })).toBeFocused()
-  await guide.getByRole('button', { name: 'Meu negócio ainda não tem um site' }).click()
-  await expect(guide.getByRole('heading', { name: 'O que você quer alcançar primeiro?' })).toBeFocused()
-  await guide.getByRole('button', { name: 'Receber contatos pelo WhatsApp' }).click()
-
-  const summaryHeading = guide.getByRole('heading', { name: 'Já temos um bom ponto de partida.' })
-  await expect(summaryHeading).toBeFocused()
-  await expect
-    .poll(() =>
-      summaryHeading.evaluate((heading) => {
-        const headerBottom = document.querySelector('.site-header').getBoundingClientRect().bottom
-        const headingBounds = heading.getBoundingClientRect()
-        return headingBounds.top >= headerBottom && headingBounds.bottom <= window.innerHeight
-      }),
-    )
-    .toBe(true)
-
-  await expect(
-    guide.getByText(
-      'Revise as informações antes de continuar. Você poderá complementar ou alterar a mensagem no WhatsApp.',
-    ),
-  ).toBeVisible()
-  const whatsapp = guide.getByRole('link', { name: 'Continuar no WhatsApp' })
-  await expect(whatsapp).toBeVisible()
-  const href = await whatsapp.getAttribute('href')
-  const message = new URL(href).searchParams.get('text')
-  expect(message).toContain('Quero apresentar meu negócio e atender melhor.')
-  expect(message).toContain('Meu negócio ainda não tem um site.')
-  expect(message).toContain('Quero receber contatos pelo WhatsApp.')
-  expect(message).toContain('Gostaria da sua ajuda para entender o melhor caminho.')
-})
-
-test('orienta quem ainda não sabe sem abrir ou enviar o WhatsApp', async ({ page }) => {
-  await page.goto('/#guia-projeto')
-  const guide = page.getByRole('region', { name: 'O que você precisa resolver?' })
-
-  await guide.getByRole('button', { name: 'Ainda não sei por onde começar' }).click()
-  await expect(guide.getByRole('button', { name: 'Não consigo identificar o principal problema' })).toBeVisible()
-  await expect(guide.getByRole('button', { name: 'Quero automatizar uma tarefa repetitiva' })).toHaveCount(0)
-  await guide.getByRole('button', { name: 'Não consigo identificar o principal problema' }).click()
-  await guide.getByRole('button', { name: 'Receber uma orientação inicial' }).click()
-
-  await expect(page).toHaveURL(/#guia-projeto$/)
-  await expect(guide.locator('blockquote')).toContainText('Ainda não sei por onde começar.')
-})
-
-test('apresenta resultados próprios para diferentes situações do novo escopo', async ({ page }) => {
-  const paths = [
-    {
-      need: 'Quero organizar tarefas e controles do negócio',
-      situation: 'Uma tarefa repetitiva consome muito tempo',
-      goal: 'Automatizar etapas da tarefa',
-    },
-    {
-      need: 'Preciso resolver um problema em computadores',
-      situation: 'O computador está lento ou travando',
-      goal: 'Identificar a causa da lentidão',
-    },
-    {
-      need: 'Quero entender melhor os dados do negócio',
-      situation: 'Tenho vendas registradas, mas não acompanho os resultados',
-      goal: 'Acompanhar as vendas por período',
-    },
-    {
-      need: 'Tenho outro problema para resolver',
-      situation: 'Preciso criar ou melhorar uma ferramenta digital',
-      goal: 'Definir uma primeira versão',
-    },
-  ]
-
-  for (const [index, path] of paths.entries()) {
-    await page.goto(`/?guide=${index}#guia-projeto`)
-    const guide = page.getByRole('region', { name: 'O que você precisa resolver?' })
-    await guide.getByRole('button', { name: path.need }).click()
-    await guide.getByRole('button', { name: path.situation }).click()
-    await expect(guide.getByRole('button', { name: path.goal })).toBeVisible()
-  }
-})
-
-test('permite voltar, alterar uma resposta e recomeçar sem manter dependências antigas', async ({ page }) => {
-  await page.goto('/#guia-projeto')
-  const guide = page.getByRole('region', { name: 'O que você precisa resolver?' })
-
-  await guide.getByRole('button', { name: 'Quero apresentar meu negócio e atender melhor' }).click()
-  await guide.getByRole('button', { name: 'Meu negócio ainda não tem um site' }).click()
-  await guide.getByRole('button', { name: 'Receber contatos pelo WhatsApp' }).click()
-  await expect(guide.getByRole('heading', { name: 'Já temos um bom ponto de partida.' })).toBeFocused()
-  await guide.getByRole('button', { name: 'Voltar' }).click()
-  await guide.getByRole('button', { name: 'Voltar' }).click()
-
-  const previous = guide.getByRole('button', { name: 'Meu negócio ainda não tem um site' })
-  await expect(previous).toHaveAttribute('aria-pressed', 'true')
-  await guide.getByRole('button', { name: 'Meu site não apresenta bem o que eu ofereço' }).click()
-  await guide.getByRole('button', { name: 'Melhorar a mensagem da minha oferta' }).click()
-
-  await expect(guide.locator('blockquote')).toContainText('Meu site não apresenta bem o que eu ofereço.')
-  await expect(guide.locator('blockquote')).not.toContainText('Meu negócio ainda não tem um site.')
-  await guide.getByRole('button', { name: 'Recomeçar' }).click()
-  await expect(guide.getByRole('button')).toHaveCount(6)
-  await expect(guide.getByRole('progressbar', { name: 'Progresso do guia' })).toHaveAttribute('aria-valuenow', '1')
-})
-
 test('navega pelas evidências do projeto', async ({ page }) => {
   await page.goto('/#projetos')
   await expect(page.getByText('01 / 03')).toBeVisible()
@@ -349,78 +229,11 @@ test('preserva o conteúdo com movimento reduzido', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' })
   await page.goto('/')
 
-  const guide = page.getByRole('region', { name: 'O que você precisa resolver?' })
-  await guide.getByRole('button', { name: 'Quero apresentar meu negócio e atender melhor' }).click()
-  await expect(guide.getByRole('heading', { name: 'O que mais precisa melhorar hoje?' })).toBeVisible()
-
-  const reducedStyles = await guide
-    .locator('.project-guide-choice')
-    .first()
-    .evaluate((element) => ({
-      transitionDuration: getComputedStyle(element).transitionDuration,
-      fillTransitionDuration: getComputedStyle(element, '::before').transitionDuration,
-      stepAnimationName: getComputedStyle(element.closest('.project-guide-step')).animationName,
-    }))
-  expect(reducedStyles.transitionDuration).toBe('0s')
-  expect(reducedStyles.fillTransitionDuration).toBe('0s')
-  expect(reducedStyles.stepAnimationName).toBe('none')
-
   const solutionsHeading = page.getByRole('heading', {
     name: /veja como posso ajudar o seu negócio/i,
   })
   await solutionsHeading.scrollIntoViewIfNeeded()
   await expect(solutionsHeading).toBeVisible()
-})
-
-test('mantém o guia acessível por teclado e estável em larguras críticas', async ({ page, isMobile }) => {
-  test.skip(isMobile, 'A verificação controla viewports específicas no projeto desktop')
-  test.setTimeout(60_000)
-
-  for (const viewport of [
-    { width: 1440, height: 900 },
-    { width: 1024, height: 900 },
-    { width: 768, height: 900 },
-    { width: 390, height: 844 },
-    { width: 320, height: 720 },
-  ]) {
-    await page.setViewportSize(viewport)
-    await page.goto('/#guia-projeto')
-    const guide = page.getByRole('region', { name: 'O que você precisa resolver?' })
-    const choices = guide.locator('.project-guide-choice')
-    expect(await choices.evaluateAll((items) => items.every((item) => item.getBoundingClientRect().height >= 44))).toBe(
-      true,
-    )
-    await expect
-      .poll(() => page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth))
-      .toBe(true)
-  }
-
-  await page.setViewportSize({ width: 390, height: 844 })
-  await page.goto('/#guia-projeto')
-  const firstChoice = page.getByRole('button', { name: 'Quero apresentar meu negócio e atender melhor' })
-  await firstChoice.focus()
-  await page.keyboard.press('Enter')
-  await expect(page.getByRole('heading', { name: 'O que mais precisa melhorar hoje?' })).toBeFocused()
-  await expect(page.getByRole('progressbar', { name: 'Progresso do guia' })).toHaveAttribute('aria-valuenow', '2')
-})
-
-test('anima o preenchimento da escolha antes de avançar', async ({ page, isMobile }) => {
-  test.skip(isMobile, 'A verificação usa um dispositivo com ponteiro e suporte a hover')
-
-  await page.setViewportSize({ width: 1440, height: 900 })
-  await page.goto('/#guia-projeto')
-  await page.addStyleTag({ content: 'html { scroll-behavior: auto !important; }' })
-  await page.getByRole('button', { name: 'Quero apresentar meu negócio e atender melhor' }).click()
-  await expect(page.getByRole('heading', { name: 'O que mais precisa melhorar hoje?' })).toBeFocused()
-  const animatedChoice = page.getByRole('button', { name: 'Meu negócio ainda não tem um site' })
-  await animatedChoice.hover()
-  await expect.poll(() => animatedChoice.evaluate((element) => element.matches(':hover'))).toBe(true)
-  await expect
-    .poll(() => animatedChoice.evaluate((element) => getComputedStyle(element, '::before').transform))
-    .toBe('matrix(1, 0, 0, 1, 0, 0)')
-  await animatedChoice.click()
-  await expect(page.locator('.project-guide-step')).toHaveClass(/is-leaving/, { timeout: 250 })
-  await expect(page.getByRole('heading', { name: 'O que você quer alcançar primeiro?' })).toBeFocused()
 })
 
 test('destaca o estudo mais recente na página inicial', async ({ page }) => {
@@ -487,20 +300,6 @@ test('contato móvel complementa as ações sem duplicar o contato visível', as
   await page.goto('/')
 
   const mobileContact = page.getByRole('link', { name: 'Conversar com Leonardo pelo WhatsApp' })
-  await expect(mobileContact).toBeHidden()
-  await page.locator('#guia-projeto').evaluate((element) => {
-    window.scrollTo({ top: element.offsetTop + 240, behavior: 'instant' })
-  })
-  await expect(page.getByRole('button', { name: 'Ainda não sei por onde começar' })).toBeVisible()
-  await expect
-    .poll(() =>
-      page
-        .locator('.hero-actions .button')
-        .first()
-        .evaluate((element) => element.getBoundingClientRect().bottom),
-    )
-    .toBeLessThanOrEqual(0)
-  await page.waitForTimeout(300)
   await expect(mobileContact).toBeHidden()
   await page.getByRole('heading', { name: 'Sites e catálogos' }).scrollIntoViewIfNeeded()
   await expect(mobileContact).toBeHidden()

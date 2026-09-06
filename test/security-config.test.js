@@ -154,7 +154,7 @@ test('navegação mobile ocupa a tela e mantém acesso por teclado', async () =>
   const styles = await readFile(new URL('../src/styles.css', import.meta.url), 'utf8')
 
   assert.match(app, /className="skip-link" href="#conteudo-principal"/)
-  assert.match(app, /<main id="conteudo-principal" tabIndex="-1">/)
+  assert.match(app, /<main\b[^>]*id="conteudo-principal" tabIndex="-1">/)
   assert.match(header, /open \? ' menu-active' : ''/)
   assert.match(styles, /\.site-header\.menu-active[^}]*backdrop-filter: none/)
   assert.match(styles, /\.nav \{[^}]*min-height: 100dvh/)
