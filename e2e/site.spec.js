@@ -448,7 +448,7 @@ test('oferece a marca e os contatos em um encerramento centralizado', async ({ p
   await expect(contact.locator('.brand-contact-mark')).toBeVisible()
   await expect(page.locator('.founder-copy')).toHaveCount(0)
   await expect(linkedin).toBeVisible()
-  await expect(linkedin).toHaveAttribute('href', 'https://www.linkedin.com/in/leocalegare')
+  await expect(linkedin).toHaveAttribute('href', 'https://www.linkedin.com/company/noumena-labs-tecnologia/')
   await expect(linkedin).toHaveAttribute('target', '_blank')
   await expect(linkedin).toHaveAttribute('rel', 'noreferrer')
   await expect(linkedin.locator('svg')).toBeVisible()

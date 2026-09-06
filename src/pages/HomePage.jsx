@@ -335,14 +335,6 @@ function HomePage() {
               target="_blank"
               rel="noreferrer"
             >
-              LinkedIn Noumena Labs <Icon name="linkedin" size={17} />
-            </a>
-            <a
-              className="button button-small brand-contact-link"
-              href="https://www.linkedin.com/in/leocalegare"
-              target="_blank"
-              rel="noreferrer"
-            >
               LinkedIn <Icon name="linkedin" size={17} />
             </a>
             <a
