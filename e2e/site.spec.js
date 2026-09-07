@@ -163,16 +163,16 @@ test('remove o deslocamento do carrossel com movimento reduzido', async ({ page 
   await expect(page.locator('.services-carousel-page')).toHaveCSS('animation-name', 'none')
 })
 
-test('apresenta o case como problema, mudança, estratégia e entrega', async ({ page }) => {
+test('apresenta o case como problema, solução, estratégia e entrega', async ({ page }) => {
   await page.goto('/#projetos')
   const project = page.locator('.project-card')
 
   await expect(project.locator('.case-sequence > div').nth(0)).toContainText('Desafio')
-  await expect(project.locator('.case-sequence > div').nth(1)).toContainText('O que foi construído')
+  await expect(project.locator('.case-sequence > div').nth(1)).toContainText('Solução entregue')
   await expect(project.locator('.case-sequence > div').nth(2)).toContainText('Estratégia')
   await expect(project.locator('.case-sequence > div').nth(3)).toContainText('Entrega')
-  await expect(project.getByRole('link', { name: 'Ver projeto publicado' })).toBeVisible()
-  await expect(project.getByRole('link', { name: 'Quero construir algo assim' })).toBeVisible()
+  await expect(project.getByRole('link', { name: 'Abrir projeto publicado' })).toBeVisible()
+  await expect(project.getByRole('link', { name: 'Conversar sobre um projeto parecido' })).toBeVisible()
 })
 
 test('mantém os cabeçalhos das seções sem descrições auxiliares', async ({ page }) => {
@@ -181,7 +181,7 @@ test('mantém os cabeçalhos das seções sem descrições auxiliares', async ({
 
   await expect(page.locator('#projetos .project-heading > p')).toHaveCount(0)
   await expect(page.locator('#projetos .project-heading h2')).toHaveCount(0)
-  await expect(page.locator('#faq .faq-intro > p:not(.section-label)')).toHaveCount(0)
+  await expect(page.locator('#faq .faq-description')).toHaveText('Entenda como funciona antes de contratar.')
   await expect(page.locator('#cadernos .section-heading > p')).toHaveCount(0)
 })
 

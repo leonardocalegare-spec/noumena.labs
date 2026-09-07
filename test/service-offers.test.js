@@ -10,18 +10,18 @@ test('catálogo aprovado tem quatro categorias e doze ofertas com preço públic
   assert.deepEqual(
     offers.map(({ id, price }) => [id, price.amount, price.type]),
     [
-      ['pagina-profissional', 890, 'from'],
-      ['catalogo-online', 1490, 'from'],
-      ['site-institucional', 2490, 'from'],
-      ['whatsapp-business', 290, 'fixed'],
-      ['perfil-google', 290, 'fixed'],
-      ['clientes-crm', 1290, 'from'],
-      ['planilha-controle', 990, 'from'],
-      ['automacao-tarefa', 2190, 'from'],
-      ['painel-indicadores', 2490, 'from'],
-      ['suporte-remoto', 150, 'fixed'],
-      ['formatacao', 390, 'from'],
-      ['manutencao-site', 190, 'monthly'],
+      ['pagina-profissional', 597, 'fixed'],
+      ['catalogo-online', 897, 'from'],
+      ['site-institucional', 1297, 'from'],
+      ['whatsapp-business', 247, 'fixed'],
+      ['perfil-google', 247, 'fixed'],
+      ['clientes-crm', 797, 'from'],
+      ['planilha-controle', 497, 'from'],
+      ['automacao-tarefa', 997, 'from'],
+      ['painel-indicadores', 897, 'from'],
+      ['suporte-remoto', 120, 'fixed'],
+      ['formatacao', 297, 'from'],
+      ['manutencao-site', 129, 'monthly'],
     ],
   )
 })
@@ -50,8 +50,8 @@ test('pacotes e projeto específico conservam os modelos comerciais aprovados', 
   assert.deepEqual(
     site.servicePackages.map(({ price }) => price),
     [
-      { type: 'fixed', amount: 1090 },
-      { type: 'from', amount: 3490 },
+      { type: 'fixed', amount: 797 },
+      { type: 'from', amount: 1997 },
     ],
   )
   assert.deepEqual(site.otherChallengesService.price, { type: 'quote' })

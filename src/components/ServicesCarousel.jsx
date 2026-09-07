@@ -9,7 +9,24 @@ import {
 } from '../utils/serviceCarousel.js'
 
 const getInitialPerPage = () => (typeof window === 'undefined' ? 3 : getServicesPerPage(window.innerWidth))
-const formatNumber = (value) => String(value).padStart(2, '0')
+const serviceNotes = {
+  sites: 'Conteúdo fornecido pelo cliente · domínio e hospedagem separados',
+  atendimento: 'Configuração em ferramentas existentes · acessos autorizados',
+  controles: 'Dados e ferramentas disponíveis · limites confirmados antes do início',
+  suporte: 'Atendimento agendado · escopo definido antes da execução',
+}
+const serviceAudiences = {
+  sites: 'autônomos, lojas e prestadores de serviço',
+  atendimento: 'negócios que precisam organizar Google e WhatsApp',
+  controles: 'empresas que ainda controlam tarefas manualmente',
+  suporte: 'pequenos escritórios e profissionais autônomos',
+}
+
+const priceModel = (price) => {
+  if (price.type === 'monthly') return 'manutenção'
+  if (price.type === 'from') return 'projeto'
+  return 'pagamento único'
+}
 
 export default function ServicesCarousel({ services, otherService, packages = [] }) {
   const items = services
@@ -129,7 +146,7 @@ export default function ServicesCarousel({ services, otherService, packages = []
               <Icon name="arrow" size={18} className="icon-previous" />
             </button>
             <p className="services-carousel-count" aria-hidden="true">
-              {formatNumber(range.from)}–{formatNumber(range.to)} / {formatNumber(items.length)}
+              {range.to} de {items.length} categorias
             </p>
             <button
               type="button"
@@ -178,16 +195,21 @@ export default function ServicesCarousel({ services, otherService, packages = []
                     <div className="service-card-copy">
                       <h3>{service.title}</h3>
                       <p>{service.description}</p>
+                      <p className="service-card-audience">
+                        <strong>Indicado para:</strong> {serviceAudiences[service.id]}
+                      </p>
                     </div>
                   </div>
                   <ul className="service-preview">
-                    {service.offers.map((offer) => (
-                      <li key={offer.id}>
+                    {service.offers.map((offer, offerIndex) => (
+                      <li className={offerIndex === 0 ? 'is-featured' : ''} key={offer.id}>
                         <span>{offer.title}</span>
                         <ServicePrice price={offer.price} />
+                        <small>{priceModel(offer.price)}</small>
                       </li>
                     ))}
                   </ul>
+                  <p className="service-card-note">{serviceNotes[service.id]}</p>
                   <button
                     type="button"
                     className="category-open"
@@ -195,7 +217,7 @@ export default function ServicesCarousel({ services, otherService, packages = []
                     aria-label={`Ver serviços de ${service.title}`}
                     onClick={() => openCategory(service)}
                   >
-                    Ver serviços e escopos <Icon name="arrow" size={17} />
+                    Ver entregas e preços <Icon name="arrow" size={17} />
                   </button>
                 </article>
               ))}
@@ -223,7 +245,8 @@ export default function ServicesCarousel({ services, otherService, packages = []
       )}
       <aside className="service-custom" aria-labelledby="service-custom-title">
         <div>
-          <h3 id="service-custom-title">{otherService.title}</h3>
+          <p className="service-custom-kicker">SOLUÇÃO PERSONALIZADA</p>
+          <h3 id="service-custom-title">Não encontrou o que precisa?</h3>
           <p>{otherService.description}</p>
           <ServicePrice price={otherService.price} />
         </div>
