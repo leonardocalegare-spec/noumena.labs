@@ -74,14 +74,14 @@ test('apresenta os serviços em páginas navegáveis', async ({ page }) => {
   await expect(region).toContainText('Planilhas e automações')
   await expect(previous).toBeDisabled()
   await expect(next).toBeEnabled()
-  await expect(region.locator('.services-carousel-count')).toHaveText('01–03 / 04')
+  await expect(region.locator('.services-carousel-count')).toHaveText('3 de 4 categorias')
 
   await next.click()
   await expect(region).toContainText('Suporte e manutenção')
-  await expect(region).toContainText('Precisa de um sistema ou integração específica?')
+  await expect(region).toContainText('Não encontrou o que precisa?')
   await expect(previous).toBeEnabled()
   await expect(next).toBeDisabled()
-  await expect(region.locator('.services-carousel-count')).toHaveText('04–04 / 04')
+  await expect(region.locator('.services-carousel-count')).toHaveText('4 de 4 categorias')
 })
 
 test('mantém os contatos fora dos cards de serviços', async ({ page }) => {
@@ -133,7 +133,7 @@ test('mantém navegação válida ao redimensionar e usar teclado', async ({ pag
 
   await page.setViewportSize({ width: 768, height: 900 })
   await expect(carousel.locator('.service-card')).toHaveCount(2)
-  await expect(carousel.locator('.services-carousel-count')).toHaveText('03–04 / 04')
+  await expect(carousel.locator('.services-carousel-count')).toHaveText('4 de 4 categorias')
   await expect(next).toBeDisabled()
 })
 
@@ -150,7 +150,7 @@ test('aceita gesto horizontal no celular e preserva a rolagem vertical', async (
   await page.mouse.move(box.x + box.width * 0.2, box.y + 184, { steps: 6 })
   await page.mouse.up()
 
-  await expect(page.locator('.services-carousel-count')).toHaveText('02–02 / 04')
+  await expect(page.locator('.services-carousel-count')).toHaveText('2 de 4 categorias')
   await expect
     .poll(() => page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth))
     .toBe(true)
@@ -180,7 +180,7 @@ test('mantém os cabeçalhos das seções sem descrições auxiliares', async ({
   await expect(page.locator('#cadernos')).toBeAttached()
 
   await expect(page.locator('#projetos .project-heading > p')).toHaveCount(0)
-  await expect(page.locator('#projetos .project-heading h2')).toHaveCount(0)
+  await expect(page.locator('#projetos .project-heading h2')).toHaveText('Veja como uma necessidade vira uma solução digital.')
   await expect(page.locator('#faq .faq-description')).toHaveText('Entenda como funciona antes de contratar.')
   await expect(page.locator('#cadernos .section-heading > p')).toHaveCount(0)
 })
@@ -220,7 +220,7 @@ test('mantém conteúdo e navegação coerentes ao rolar', async ({ page, isMobi
   test.skip(isMobile, 'Estado ativo da navegação é exibido no desktop')
   await page.goto('/#projetos')
 
-  await expect(page.locator('#projetos .section-label')).toContainText('02 PROJETO EM DESTAQUE')
+  await expect(page.locator('#projetos .section-label')).toContainText('02 UM PROJETO NA PRÁTICA')
   await expect(page.getByRole('heading', { name: 'Rede Credenciada Parkaz' })).toBeVisible()
   await expect(page.getByRole('link', { name: 'Projeto', exact: true })).toHaveAttribute('aria-current', 'location')
 })
@@ -303,7 +303,7 @@ test('contato móvel complementa as ações sem duplicar o contato visível', as
   await expect(mobileContact).toBeHidden()
   await page.getByRole('heading', { name: 'Sites e catálogos' }).scrollIntoViewIfNeeded()
   await expect(mobileContact).toBeHidden()
-  await page.getByRole('heading', { name: /o que você precisa saber antes de começar/i }).scrollIntoViewIfNeeded()
+  await page.getByRole('heading', { name: 'Tire suas dúvidas' }).scrollIntoViewIfNeeded()
   await expect(mobileContact).toBeVisible()
   await page.locator('.brand-contact').scrollIntoViewIfNeeded()
   await expect(mobileContact).toBeHidden()
