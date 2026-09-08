@@ -160,15 +160,69 @@ function SupportDiagnostic() {
   )
 }
 
+function DataPipeline() {
+  return (
+    <svg className="data-pipeline" viewBox="0 0 800 460" focusable="false">
+      <path className="data-guide" d="M58 230H742M200 84v292M400 84v292M600 84v292" />
+
+      <g className="data-source">
+        <rect x="72" y="174" width="112" height="112" rx="4" />
+        <path d="M94 201h68M94 220h48M94 239h58M94 258h36" />
+      </g>
+
+      <g className="data-structure">
+        <rect x="254" y="154" width="132" height="152" rx="4" />
+        <path d="M254 190h132M298 190v116M342 190v116M254 228h132M254 266h132" />
+        <circle cx="276" cy="172" r="3" />
+        <circle cx="288" cy="172" r="3" />
+      </g>
+
+      <g className="data-analysis">
+        <rect x="446" y="164" width="112" height="132" rx="4" />
+        <path d="M468 265v-35h16v35M494 265v-62h16v62M520 265v-48h16v48M466 278h72" />
+      </g>
+
+      <g className="data-decision">
+        <circle cx="678" cy="230" r="58" />
+        <path d="M648 231l20 20 39-47" />
+      </g>
+
+      <path className="data-route data-route-base" d="M184 230H254M386 230H446M558 230H620" />
+      <path className="data-route data-route-active" pathLength="1" d="M184 230H254M386 230H446M558 230H620" />
+
+      <g className="data-nodes">
+        <circle cx="200" cy="230" r="6" />
+        <circle cx="400" cy="230" r="6" />
+        <circle cx="600" cy="230" r="6" />
+      </g>
+
+      <g className="data-labels">
+        <text x="72" y="142">FONTE</text>
+        <text x="254" y="122">ORGANIZAÇÃO</text>
+        <text x="446" y="132">ANÁLISE</text>
+        <text x="636" y="142">DECISÃO</text>
+        <text className="data-detail" x="72" y="324">DADO BRUTO</text>
+        <text className="data-detail" x="254" y="344">CONTEXTO / QUALIDADE</text>
+        <text className="data-detail" x="446" y="334">PADRÃO / EVIDÊNCIA</text>
+      </g>
+
+      <g className="data-corners data-detail">
+        <path d="M48 82V62h20M752 82V62h-20M48 378v20h20M752 378v20h-20" />
+      </g>
+    </svg>
+  )
+}
+
 export default function ContentCover({ item, compact = false }) {
   const seed = Math.abs(hashValue(item?.slug || 'cadernos-noumena'))
   const isInteractionMap = item?.cover === 'interaction-map'
   const isSupportDiagnostic = item?.cover === 'support-diagnostic'
+  const isDataPipeline = item?.cover === 'data-pipeline'
   const visualVariant = seed % 6
 
   return (
     <div
-      className={`content-cover content-cover--variant-${visualVariant}${compact ? ' compact' : ''}${isInteractionMap ? ' content-cover--interaction' : ''}${isSupportDiagnostic ? ' content-cover--support' : ''}`}
+      className={`content-cover content-cover--variant-${visualVariant}${compact ? ' compact' : ''}${isInteractionMap ? ' content-cover--interaction' : ''}${isSupportDiagnostic ? ' content-cover--support' : ''}${isDataPipeline ? ' content-cover--data' : ''}`}
       aria-hidden="true"
     >
       <div className="cover-grid" />
@@ -176,6 +230,8 @@ export default function ContentCover({ item, compact = false }) {
         <InteractionMap />
       ) : isSupportDiagnostic ? (
         <SupportDiagnostic />
+      ) : isDataPipeline ? (
+        <DataPipeline />
       ) : (
         <>
           <div className="cover-orbit cover-orbit-a" />
@@ -195,13 +251,21 @@ export default function ContentCover({ item, compact = false }) {
             ? 'HUMAN LOOP'
             : isSupportDiagnostic
               ? 'FLUXO TÉCNICO'
+              : isDataPipeline
+                ? 'DADO → DECISÃO'
               : item?.typeLabel?.toUpperCase() || 'ARQUIVO VIVO'}
         </span>
       </div>
       <div className="cover-index">
         <small>NOUMENA · LABS</small>
         <strong>
-          {isInteractionMap ? 'UX' : isSupportDiagnostic ? 'TI' : String((seed % 89) + 10).padStart(2, '0')}
+          {isInteractionMap
+            ? 'UX'
+            : isSupportDiagnostic
+              ? 'TI'
+              : isDataPipeline
+                ? 'DA'
+                : String((seed % 89) + 10).padStart(2, '0')}
         </strong>
       </div>
     </div>

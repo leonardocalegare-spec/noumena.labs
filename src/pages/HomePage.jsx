@@ -214,10 +214,6 @@ function HomePage() {
                 Seu negócio pode vender melhor, trabalhar com mais organização e tomar decisões com <span>clareza</span>
                 .
               </h1>
-              <p className="hero-text">
-                Crio páginas e catálogos, organizo seu atendimento e desenvolvo controles para facilitar a rotina do seu
-                negócio. Veja os serviços, os preços e o que cada entrega inclui.
-              </p>
               <div className="hero-actions">
                 <a className="button" href={generalProjectLink} target="_blank" rel="noreferrer">
                   Conversar sobre meu projeto <Icon name="arrow" />

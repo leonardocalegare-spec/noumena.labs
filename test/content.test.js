@@ -67,6 +67,22 @@ test('mantém o estudo de Suporte de TI publicado como novo destaque', async () 
   assert.ok(item.headings.length >= 9)
 })
 
+test('mantém o estudo de análise de dados publicado com capa própria', async () => {
+  const source = await readFile(new URL('../src/content/cadernos/do-dado-a-decisao.md', import.meta.url), 'utf8')
+  const parsed = parseCadernoSource(source, 'do-dado-a-decisao.md')
+  const errors = validateCaderno(parsed, 'do-dado-a-decisao.md')
+  const item = buildCaderno(parsed)
+
+  assert.deepEqual(errors, [])
+  assert.equal(item.slug, 'do-dado-a-decisao')
+  assert.equal(item.status, 'published')
+  assert.equal(item.publishedAt, '2026-09-08')
+  assert.equal(item.code, 'EST/003')
+  assert.equal(item.featured, false)
+  assert.equal(item.cover, 'data-pipeline')
+  assert.ok(item.headings.length >= 10)
+})
+
 test('impede a publicação de vídeo sem ID válido', () => {
   const document = {
     metadata: {

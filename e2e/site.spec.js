@@ -23,9 +23,7 @@ test('apresenta uma proposta ampla e direta na abertura', async ({ page }) => {
     }),
   ).toBeVisible()
   await expect(page.locator('.hero .eyebrow')).toHaveCount(0)
-  await expect(page.locator('.hero-text')).toHaveText(
-    'Crio páginas e catálogos, organizo seu atendimento e desenvolvo controles para facilitar a rotina do seu negócio. Veja os serviços, os preços e o que cada entrega inclui.',
-  )
+  await expect(page.locator('.hero-text')).toHaveCount(0)
   await expect(page.locator('.hero-copy')).not.toContainText('—')
 })
 
@@ -415,7 +413,7 @@ test('abre os Cadernos e preserva a navegação editorial', async ({ page, isMob
   if (isMobile) await page.getByRole('button', { name: 'Abrir menu' }).click()
   await expect(page.getByRole('link', { name: 'Cadernos', exact: true })).toHaveAttribute('aria-current', 'page')
   await expect(page.locator('.noumena-dialogue')).toBeVisible()
-  await expect(page.locator('.article-card.featured .content-cover--support')).toBeVisible()
+  await expect(page.locator('.article-card.featured .content-cover--data')).toBeVisible()
   await expect(page.locator('.article-card.featured').getByText('ESTUDO', { exact: true })).toBeVisible()
   await expect
     .poll(() => page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth))
@@ -446,6 +444,20 @@ test('renderiza um rascunho editorial sem comentários ou vídeo fictício', asy
   await expect(page.getByText('Adicione a URL do YouTube antes de publicar este vídeo.')).toBeVisible()
   await expect(page.getByRole('heading', { name: 'Comece pelo propósito' })).toBeVisible()
   await expect(page.getByRole('region', { name: /comentários/i })).toHaveCount(0)
+})
+
+test('renderiza o estudo publicado de análise de dados com sua capa editorial', async ({ page }) => {
+  await page.goto('/cadernos/do-dado-a-decisao/')
+
+  await expect(page.getByRole('heading', { name: 'Do dado à decisão: o que aprendi sobre análise de dados' })).toBeVisible()
+  await expect(page.getByText('RASCUNHO LOCAL · NÃO SERÁ PUBLICADO')).toHaveCount(0)
+  await expect(page.locator('.article-hero-meta').getByText('EST/003', { exact: true })).toBeVisible()
+  await expect(page.locator('.article-media .content-cover--data')).toBeVisible()
+  await expect(page.locator('.article-media .data-pipeline')).toBeVisible()
+  await expect(page.getByRole('heading', { name: 'Dados não falam sozinhos' })).toBeVisible()
+  await expect
+    .poll(() => page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth))
+    .toBe(true)
 })
 
 test('apresenta uma página editorial para endereços inexistentes', async ({ page }) => {
